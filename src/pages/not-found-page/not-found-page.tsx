@@ -4,20 +4,18 @@ import './not-found-page.css';
 
 function NotFoundPage() {
   return (
-    <div className="page page--gray">
-      <main className="page__main">
-        <div className="container">
-          <section className="not-found">
-            <h1 className="not-found__title">404</h1>
-            <p className="not-found__text">Page not found</p>
-            <p className="not-found__description">
+    <main className="page__main">
+      <div className="container">
+        <section className="not-found">
+          <h1 className="not-found__title">404</h1>
+          <p className="not-found__text">Page not found</p>
+          <p className="not-found__description">
               The page you are looking for does not exist or has been moved.
-            </p>
-            <Link to={AppRoute.Root} className="not-found__link button">Back to home page.</Link>
-          </section>
-        </div>
-      </main>
-    </div>
+          </p>
+          <Link to={AppRoute.Root} className="not-found__link button">Back to home page.</Link>
+        </section>
+      </div>
+    </main>
   );
 }
 
