@@ -1,10 +1,11 @@
 import PlaceCard from '../../components/place-card/place-card';
+import {TOffers} from '../../types/offer';
 
 type MainPageProps = {
-  offersCount: number;
+  offers: TOffers;
 }
 
-function MainPage({offersCount}: MainPageProps) {
+function MainPage({offers}: MainPageProps) {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -48,7 +49,7 @@ function MainPage({offersCount}: MainPageProps) {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">312 places to stay in Amsterdam</b>
+            <b className="places__found">{offers.length} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by </span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -76,7 +77,7 @@ function MainPage({offersCount}: MainPageProps) {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {Array.from({length: offersCount}, () => <PlaceCard key={crypto.randomUUID()} />)}
+              {offers.map(() => <PlaceCard key={crypto.randomUUID()} />)}
             </div>
           </section>
           <div className="cities__right-section">
