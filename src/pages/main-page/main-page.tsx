@@ -1,5 +1,5 @@
-import PlaceCard from '../../components/place-card/place-card';
 import {TOffers} from '../../types/offer';
+import PlacesList from '../../components/places-list/places-list';
 
 type MainPageProps = {
   offers: TOffers;
@@ -76,9 +76,7 @@ function MainPage({offers}: MainPageProps) {
                 </li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer) => <PlaceCard key={crypto.randomUUID()} offer={offer} />)}
-            </div>
+            <PlacesList offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"/>
