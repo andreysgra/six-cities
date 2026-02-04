@@ -24,3 +24,5 @@ export enum BookmarkPlace {
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;
+
+export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'] as const;
