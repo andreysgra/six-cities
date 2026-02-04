@@ -5,9 +5,15 @@ import {AppRoute} from '../../const';
 
 type PlaceCardProps = {
   offer: TOffer;
+  onMouseEnter?: (id: string) => void;
+  onMouseLeave?: () => void;
 }
 
-function PlaceCard({offer}: PlaceCardProps) {
+function PlaceCard({
+  offer,
+  onMouseEnter = () => undefined,
+  onMouseLeave = () => undefined
+}: PlaceCardProps) {
   const {
     id,
     title,
@@ -17,8 +23,16 @@ function PlaceCard({offer}: PlaceCardProps) {
     rating,
     previewImage
   } = offer;
+
+  const handleMouseEnter = () => onMouseEnter(id);
+  const handleMouseLeave = () => onMouseLeave();
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className="cities__card place-card"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
