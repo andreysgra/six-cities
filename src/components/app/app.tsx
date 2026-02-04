@@ -52,7 +52,7 @@ function App({offers}: AppProps) {
                 restrictedFor={AuthorizationStatus.NoAuth}
                 redirectedTo={AppRoute.Login}
               >
-                <FavoritesPage />
+                <FavoritesPage favoriteOffers={offers} />
               </PrivateRoute>
             }
           />
