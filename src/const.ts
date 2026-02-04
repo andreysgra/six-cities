@@ -26,3 +26,8 @@ export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 export const STARS_COUNT = 5;
 
 export const RATINGS = ['perfect', 'good', 'not bad', 'badly', 'terribly'] as const;
+
+export const CommentLength = {
+  Min: 50,
+  Max: 300
+} as const;
