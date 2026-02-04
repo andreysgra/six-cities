@@ -16,6 +16,11 @@ export enum OfferPlace {
   NearPlace = 'near-places'
 }
 
+export enum BookmarkPlace {
+  PlaceCard = 'place-card',
+  Offer = 'offer'
+}
+
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;
