@@ -2,6 +2,7 @@ import {TOffer, TOffers} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {AppRoute, OfferPlace} from '../../const';
 import PlaceCard from '../place-card/place-card';
+import FavoritesEmpty from '../favorites-empty/favorites-empty';
 
 type FavoritesProps = {
   favoriteOffers: TOffers;
@@ -24,6 +25,10 @@ function Favorites({favoriteOffers}: FavoritesProps) {
     }, {});
 
   const groupedFavoriteOffers = Object.entries(groupOffersByCity);
+
+  if (groupedFavoriteOffers.length === 0) {
+    return <FavoritesEmpty />;
+  }
 
   return (
     <section className="favorites">
