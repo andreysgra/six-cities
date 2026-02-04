@@ -77,7 +77,7 @@ function MainPage({offers}: MainPageProps) {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              {offers.map(() => <PlaceCard key={crypto.randomUUID()} />)}
+              {offers.map((offer) => <PlaceCard key={crypto.randomUUID()} offer={offer} />)}
             </div>
           </section>
           <div className="cities__right-section">
