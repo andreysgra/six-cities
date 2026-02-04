@@ -10,6 +10,12 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH'
 }
 
+export enum OfferPlace {
+  City = 'cities',
+  Favorite = 'favorites',
+  NearPlace = 'near-places'
+}
+
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;

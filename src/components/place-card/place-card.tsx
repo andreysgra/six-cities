@@ -1,16 +1,18 @@
 import {TOffer} from '../../types/offer';
 import {capitalizeFirstLetter, getRatingStyle} from '../../utils/utils';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, OfferPlace} from '../../const';
 
 type PlaceCardProps = {
   offer: TOffer;
+  place?: OfferPlace;
   onMouseEnter?: (id: string) => void;
   onMouseLeave?: () => void;
 }
 
 function PlaceCard({
   offer,
+  place = OfferPlace.City,
   onMouseEnter = () => undefined,
   onMouseLeave = () => undefined
 }: PlaceCardProps) {
@@ -29,7 +31,7 @@ function PlaceCard({
 
   return (
     <article
-      className="cities__card place-card"
+      className={`${place}__card place-card`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -38,13 +40,13 @@ function PlaceCard({
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${place}__image-wrapper place-card__image-wrapper`}>
         <Link to={`${AppRoute.Offer}/${id}`}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={260}
-            height={200}
+            width={(place === OfferPlace.Favorite) ? 150 : 260}
+            height={(place === OfferPlace.Favorite) ? 110 : 200}
             alt={title}
           />
         </Link>
