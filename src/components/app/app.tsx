@@ -7,15 +7,16 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
+import {TOffers} from '../../types/offer';
 
 
 type AppProps = {
-  offersCount: number;
+  offers: TOffers;
 }
 
 const authorizationStatus = AuthorizationStatus.NoAuth;
 
-function App({offersCount}: AppProps) {
+function App({offers}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -25,7 +26,7 @@ function App({offersCount}: AppProps) {
         >
           <Route
             index
-            element={<MainPage offersCount={offersCount} />}
+            element={<MainPage offers={offers} />}
           />
           <Route
             path={AppRoute.Login}
@@ -51,7 +52,7 @@ function App({offersCount}: AppProps) {
                 restrictedFor={AuthorizationStatus.NoAuth}
                 redirectedTo={AppRoute.Login}
               >
-                <FavoritesPage />
+                <FavoritesPage favoriteOffers={offers} />
               </PrivateRoute>
             }
           />
