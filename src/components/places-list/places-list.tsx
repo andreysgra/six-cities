@@ -16,7 +16,7 @@ function PlacesList({offers}: PlacesListProps) {
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <PlaceCard
-          key={crypto.randomUUID()}
+          key={`${offer.id}`}
           offer={offer}
           onMouseEnter={handleCardMouseEnter}
           onMouseLeave={handleCardMouseLeave}

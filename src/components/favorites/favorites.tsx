@@ -9,32 +9,30 @@ type FavoritesProps = {
 }
 
 function Favorites({favoriteOffers}: FavoritesProps) {
-  const groupOffersByCity =
-    favoriteOffers.reduce<{ [key: string]: TOffers }>((acc: { [key: string]: TOffers }, curr: TOffer) => {
-      if (curr.isFavorite) {
-        const city = curr.city.name;
+  const offersGropedByCity =
+    favoriteOffers.reduce<{ [key: string]: TOffers }>((result, offer: TOffer) => {
+      if (offer.isFavorite) {
+        const city = offer.city.name;
 
-        if (!(city in acc)) {
-          acc[city] = [];
-        }
-
-        acc[city].push(curr);
+        result[city] ??= [];
+        result[city].push(offer);
       }
 
-      return acc;
-    }, {});
+      return result;
+    }, {}
+    );
 
-  const groupedFavoriteOffers = Object.entries(groupOffersByCity);
+  const groupedFavoriteOffers = Object.entries(offersGropedByCity);
 
   if (groupedFavoriteOffers.length === 0) {
-    return <FavoritesEmpty />;
+    return <FavoritesEmpty/>;
   }
 
   return (
     <section className="favorites">
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
-        {groupedFavoriteOffers.sort().map(([city, groupedOffers]: [string, TOffers]) => (
+        {groupedFavoriteOffers.sort().map(([city, offers]: [string, TOffers]) => (
           <li className="favorites__locations-items" key={city}>
             <div className="favorites__locations locations locations--current">
               <div className="locations__item">
@@ -44,9 +42,13 @@ function Favorites({favoriteOffers}: FavoritesProps) {
               </div>
             </div>
             <div className="favorites__places">
-              {groupedOffers.map((offer: TOffer) =>
-                <PlaceCard key={`favorite-${offer.id}`} offer={offer} place={OfferPlace.Favorite} />
-              )}
+              {offers.map((offer: TOffer) => (
+                <PlaceCard
+                  key={`${offer.id}`}
+                  offer={offer}
+                  place={OfferPlace.Favorite}
+                />
+              ))}
             </div>
           </li>
         ))}
