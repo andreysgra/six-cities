@@ -8,16 +8,16 @@ export const offers: TOffers = [
     'price': 207,
     'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'location': {
-      'latitude': 48.868610000000004,
-      'longitude': 2.342499,
+      'latitude': 52.36554,
+      'longitude': 4.911976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -31,16 +31,16 @@ export const offers: TOffers = [
     'price': 532,
     'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/20.jpg',
     'city': {
-      'name': 'Cologne',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 50.938361,
-        'longitude': 6.959974,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'location': {
-      'latitude': 50.950361,
-      'longitude': 6.961974,
+      'latitude': 52.385540000000006,
+      'longitude': 4.902976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -54,16 +54,16 @@ export const offers: TOffers = [
     'price': 290,
     'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/13.jpg',
     'city': {
-      'name': 'Brussels',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 50.846557,
-        'longitude': 4.351697,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'location': {
-      'latitude': 50.854557,
-      'longitude': 4.364697,
+      'latitude': 52.397540000000006,
+      'longitude': 4.9099759999999995,
       'zoom': 16
     },
     'isFavorite': false,
@@ -85,8 +85,8 @@ export const offers: TOffers = [
       }
     },
     'location': {
-      'latitude': 52.36554,
-      'longitude': 4.911976,
+      'latitude': 52.37454,
+      'longitude': 4.881976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -100,16 +100,16 @@ export const offers: TOffers = [
     'price': 232,
     'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
     'city': {
-      'name': 'Hamburg',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 53.550341,
-        'longitude': 10.000654,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'location': {
-      'latitude': 53.528341000000005,
-      'longitude': 10.018654000000002,
+      'latitude': 52.367540000000005,
+      'longitude': 4.883976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -123,16 +123,16 @@ export const offers: TOffers = [
     'price': 371,
     'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/2.jpg',
     'city': {
-      'name': 'Dusseldorf',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 51.225402,
-        'longitude': 6.776314,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'location': {
-      'latitude': 51.236402000000005,
-      'longitude': 6.784314,
+      'latitude': 52.361540000000005,
+      'longitude': 4.883976,
       'zoom': 16
     },
     'isFavorite': false,
