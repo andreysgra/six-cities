@@ -8,6 +8,8 @@ type MainPageProps = {
 }
 
 function MainPage({offers}: MainPageProps) {
+  const locations = offers.map(({id, location}) => ({id, ...location}));
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -81,7 +83,7 @@ function MainPage({offers}: MainPageProps) {
             <PlacesList offers={offers} />
           </section>
           <div className="cities__right-section">
-            <Map city={City} />
+            <Map city={City} locations={locations} />
           </div>
         </div>
       </div>
