@@ -85,8 +85,8 @@ export const offers: TOffers = [
       }
     },
     'location': {
-      'latitude': 52.36554,
-      'longitude': 4.911976,
+      'latitude': 52.37454,
+      'longitude': 4.881976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -108,8 +108,8 @@ export const offers: TOffers = [
       }
     },
     'location': {
-      'latitude': 52.37454,
-      'longitude': 4.881976,
+      'latitude': 52.367540000000005,
+      'longitude': 4.883976,
       'zoom': 16
     },
     'isFavorite': false,
@@ -131,7 +131,7 @@ export const offers: TOffers = [
       }
     },
     'location': {
-      'latitude': 52.367540000000005,
+      'latitude': 52.361540000000005,
       'longitude': 4.883976,
       'zoom': 16
     },

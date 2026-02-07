@@ -1,5 +1,4 @@
 import {TCity} from './types/city';
-// import {Point} from 'leaflet';
 
 export enum AppRoute {
   Root = '/',
@@ -57,6 +56,7 @@ export const City: TCity = {
 
 export const MapIcon = {
   UrlDefault: 'img/pin.svg',
+  UrlCurrent: 'img/pin-active.svg',
   Size: [27, 39] as [number, number],
   Anchor: [13.5, 39] as [number, number]
 } as const;

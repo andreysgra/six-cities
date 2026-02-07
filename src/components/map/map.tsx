@@ -8,7 +8,8 @@ import {TLocation} from '../../types/location';
 
 type MapProps = {
   city: TCity;
-  locations: TLocation[];
+  locations: (TLocation & {id?: string})[];
+  offerCurrentId?: string | null;
   place?: MapPlace;
 }
 
@@ -18,7 +19,13 @@ const defaultIcon = new Icon({
   iconAnchor: MapIcon.Anchor
 });
 
-function Map({city, locations, place = MapPlace.City}: MapProps) {
+const currentIcon = new Icon({
+  iconUrl: MapIcon.UrlCurrent,
+  iconSize: MapIcon.Size,
+  iconAnchor: MapIcon.Anchor
+});
+
+function Map({city, locations, offerCurrentId, place = MapPlace.City}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -26,14 +33,16 @@ function Map({city, locations, place = MapPlace.City}: MapProps) {
     const markers: Marker[] = [];
 
     if (map) {
-      locations.forEach(({latitude, longitude}) => {
+      locations.forEach(({id, latitude, longitude}) => {
         const marker = new Marker({
           lat: latitude,
           lng: longitude
         });
 
         marker
-          .setIcon(defaultIcon)
+          .setIcon(
+            offerCurrentId !== null && offerCurrentId === id ? currentIcon : defaultIcon
+          )
           .addTo(map);
 
         markers.push(marker);
@@ -49,7 +58,7 @@ function Map({city, locations, place = MapPlace.City}: MapProps) {
         markers.forEach((marker) => map.removeLayer(marker));
       }
     };
-  }, [map, city, locations]);
+  }, [map, city, locations, offerCurrentId]);
 
   return (<section className={`${place}__map map`} ref={mapRef}></section>);
 }
