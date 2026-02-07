@@ -1,5 +1,7 @@
 import {TOffers} from '../../types/offer';
 import PlacesList from '../../components/places-list/places-list';
+import Map from '../../components/map/map';
+import {City} from '../../const';
 
 type MainPageProps = {
   offers: TOffers;
@@ -79,7 +81,7 @@ function MainPage({offers}: MainPageProps) {
             <PlacesList offers={offers} />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"/>
+            <Map city={City} />
           </div>
         </div>
       </div>
