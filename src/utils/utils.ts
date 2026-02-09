@@ -16,3 +16,15 @@ export function formatDate(date: string): string {
 export function sortReviewsByDate(reviewA: TReview, reviewB: TReview): number {
   return new Date(reviewB.date).getTime() - new Date(reviewA.date).getTime();
 }
+
+export function shuffleArray<T>(array: T[]) {
+  const shuffled = [...array];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const random = Math.floor(Math.random() * (i + 1));
+
+    [shuffled[i], shuffled[random]] = [shuffled[random], shuffled[i]];
+  }
+
+  return shuffled;
+}
