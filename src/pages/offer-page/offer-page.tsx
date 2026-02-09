@@ -4,8 +4,9 @@ import {TReviews} from '../../types/review';
 import {Fragment} from 'react';
 import {TOffers} from '../../types/offer';
 import NearPlacesList from '../../components/near-places-list/near-places-list';
-import {NEARBY_OFFERS_COUNT} from '../../const';
+import {City, MapPlace, NEARBY_OFFERS_COUNT} from '../../const';
 import {shuffleArray} from '../../utils/utils';
+import Map from '../../components/map/map';
 
 type OfferPageProps = {
   reviews: TReviews;
@@ -14,6 +15,7 @@ type OfferPageProps = {
 
 function OfferPage({reviews, nearByOffers}: OfferPageProps) {
   const randomNearByOffers = shuffleArray(nearByOffers).slice(0, NEARBY_OFFERS_COUNT);
+  const locations = randomNearByOffers.map(({id, location}) => ({id, ...location}));
 
   return (
     <main className="page__main page__main--offer">
@@ -157,7 +159,7 @@ function OfferPage({reviews, nearByOffers}: OfferPageProps) {
             </section>
           </div>
         </div>
-        <section className="offer__map map"/>
+        <Map city={City} locations={locations} place={MapPlace.Offer} />
       </section>
       <div className="container">
         <NearPlacesList nearByOffers={randomNearByOffers} />

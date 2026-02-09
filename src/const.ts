@@ -25,7 +25,7 @@ export enum BookmarkPlace {
 
 export enum MapPlace {
   City = 'cities',
-  Offer = 'property'
+  Offer = 'offer'
 }
 
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
