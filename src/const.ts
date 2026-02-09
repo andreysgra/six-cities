@@ -39,6 +39,8 @@ export const CommentLength = {
   Max: 300
 } as const;
 
+export const MAX_REVIEWS_COUNT = 10;
+
 export const MAP_TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 export const MAP_TILE_LAYER_ATTRIBUTION =
