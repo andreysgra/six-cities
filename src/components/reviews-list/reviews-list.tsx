@@ -7,7 +7,7 @@ type ReviewsListProps = {
   reviews: TReviews;
 }
 
-function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+function ReviewsList({reviews}: ReviewsListProps) {
   const sortedReviews = [...reviews]
     .sort(sortReviewsByDate)
     .slice(0, MAX_REVIEWS_COUNT);
