@@ -25,7 +25,7 @@ export enum BookmarkPlace {
 
 export enum MapPlace {
   City = 'cities',
-  Offer = 'property'
+  Offer = 'offer'
 }
 
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
@@ -38,6 +38,12 @@ export const CommentLength = {
   Min: 50,
   Max: 300
 } as const;
+
+export const MAX_REVIEWS_COUNT = 10;
+
+export const NEARBY_OFFERS_COUNT = 3;
+
+export const MAX_OFFER_IMAGES_COUNT = 6;
 
 export const MAP_TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
