@@ -10,10 +10,10 @@ import Layout from '../layout/layout';
 import {TOffers} from '../../types/offer';
 import {TReviews} from '../../types/review';
 import {nearbyOffers} from '../../mocks/nearby-offers';
+import {offer} from '../../mocks/offer';
 
 type AppProps = {
   offers: TOffers;
-  nearByOffers: TOffers;
   reviews: TReviews;
 }
 
@@ -45,7 +45,7 @@ function App({offers, reviews}: AppProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage reviews={reviews} nearByOffers={nearbyOffers} />}
+            element={<OfferPage reviews={reviews} offer={offer} nearByOffers={nearbyOffers} />}
           />
           <Route
             path={AppRoute.Favorites}
