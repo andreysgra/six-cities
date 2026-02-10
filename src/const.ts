@@ -43,6 +43,8 @@ export const MAX_REVIEWS_COUNT = 10;
 
 export const NEARBY_OFFERS_COUNT = 3;
 
+export const MAX_OFFER_IMAGES_COUNT = 6;
+
 export const MAP_TILE_LAYER_URL = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 
 export const MAP_TILE_LAYER_ATTRIBUTION =
