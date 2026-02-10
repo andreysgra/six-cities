@@ -24,6 +24,8 @@ function OfferPage({reviews, offer, nearByOffers}: OfferPageProps) {
       {id: nearByOffer.id, ...nearByOffer.location}
     ));
 
+  locations.push({id: offer.id, ...offer.location});
+
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -47,7 +49,7 @@ function OfferPage({reviews, offer, nearByOffers}: OfferPageProps) {
             </section>
           </div>
         </div>
-        <Map city={City} locations={locations} place={MapPlace.Offer} />
+        <Map city={City} locations={locations} offerCurrentId={offer.id} place={MapPlace.Offer} />
       </section>
       <div className="container">
         <NearPlacesList nearByOffers={randomNearByOffers} />
