@@ -3,7 +3,7 @@ import CitiesList from '../../components/cities-list/cities-list';
 
 function MainPage() {
   return (
-    <main className="page__main page__main--index">
+    <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
