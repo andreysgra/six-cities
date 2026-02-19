@@ -29,7 +29,7 @@ function App({offers, reviews}: AppProps) {
         >
           <Route
             index
-            element={<MainPage offers={offers} />}
+            element={<MainPage />}
           />
           <Route
             path={AppRoute.Login}

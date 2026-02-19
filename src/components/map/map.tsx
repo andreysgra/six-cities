@@ -48,9 +48,9 @@ function Map({city, locations, offerCurrentId, place = MapPlace.City}: MapProps)
         markers.push(marker);
       });
 
-      const {latitude: lat, longitude: lng} = city.location;
+      const {latitude: lat, longitude: lng, zoom} = city.location;
 
-      map.setView({lat, lng});
+      map.setView({lat, lng}, zoom);
     }
 
     return () => {
