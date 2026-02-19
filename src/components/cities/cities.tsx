@@ -1,6 +1,5 @@
 import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
-import {City} from '../../const';
 import {Fragment, useState} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import NoOffers from '../no-offers/no-offers';
@@ -59,7 +58,7 @@ function Cities() {
               <PlacesList offers={offers} onPlaceCardHover={handlePlaceCardHover}/>
             </section>
             <div className="cities__right-section">
-              <Map city={City} locations={locations} offerCurrentId={offerCurrentId}/>
+              <Map city={offers[0].city} locations={locations} offerCurrentId={offerCurrentId}/>
             </div>
           </Fragment>
         ) : <NoOffers city={activeCity} />}
