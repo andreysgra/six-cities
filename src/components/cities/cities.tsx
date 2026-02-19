@@ -1,14 +1,16 @@
 import PlacesList from '../places-list/places-list';
 import Map from '../map/map';
 import {City} from '../../const';
-import {TOffers} from '../../types/offer';
 import {useState} from 'react';
+import {useAppSelector} from '../../hooks/use-app-selector';
 
-type CitiesProps = {
-  offers: TOffers;
-}
+function Cities() {
+  const activeCity = useAppSelector((state) => state.city);
 
-function Cities({offers}: CitiesProps) {
+  const offers = useAppSelector((state) =>
+    state.offers.filter((offer) => offer.city.name === activeCity)
+  );
+
   const locations = offers.map(({id, location}) => ({id, ...location}));
 
   const [offerCurrentId, setOfferCurrentId] = useState<string | null>(null);
@@ -22,7 +24,7 @@ function Cities({offers}: CitiesProps) {
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+          <b className="places__found">{offers.length} places to stay in {activeCity}</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by </span>
             <span className="places__sorting-type" tabIndex={0}>
