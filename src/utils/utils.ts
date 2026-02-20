@@ -1,5 +1,7 @@
 import {STARS_COUNT} from '../const';
 import {TReview} from '../types/review';
+import {TOffer} from '../types/offer';
+import {TSorterOffers} from '../types/sorting';
 
 const MAX_PERCENT_WIDTH = 100;
 
@@ -28,3 +30,10 @@ export const shuffleArray = <T>(array: T[]): T[] => {
 };
 
 export const pluralize = (str: string, count: number): string => count === 1 ? str : `${str}s`;
+
+export const SorterOffers: TSorterOffers = {
+  Popular: () => 0,
+  PriceAsc: (a: TOffer, b: TOffer) => a.price - b.price,
+  PriceDesc: (a: TOffer, b: TOffer) => b.price - a.price,
+  TopRated: (a: TOffer, b: TOffer) => b.rating - a.rating
+};

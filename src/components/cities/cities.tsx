@@ -8,6 +8,7 @@ import Sorting from '../sorting/sorting';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {setSorting} from '../../store/action';
 import {TSortOption} from '../../types/sorting';
+import {SorterOffers} from '../../utils/utils';
 
 function Cities() {
   const activeCity = useAppSelector((state) => state.city);
@@ -15,7 +16,8 @@ function Cities() {
   const dispatch = useAppDispatch();
 
   const offers = useAppSelector((state) => state.offers)
-    .filter((offer) => offer.city.name === activeCity);
+    .filter((offer) => offer.city.name === activeCity)
+    .sort(SorterOffers[activeSorting]);
 
   const locations = offers.map(({id, location}) => ({id, ...location}));
 
