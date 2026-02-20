@@ -5,9 +5,14 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 import NoOffers from '../no-offers/no-offers';
 import classNames from 'classnames';
 import Sorting from '../sorting/sorting';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {setSorting} from '../../store/action';
+import {TSortOption} from '../../types/sorting';
 
 function Cities() {
   const activeCity = useAppSelector((state) => state.city);
+  const activeSorting = useAppSelector((state) => state.sorting);
+  const dispatch = useAppDispatch();
 
   const offers = useAppSelector((state) => state.offers)
     .filter((offer) => offer.city.name === activeCity);
@@ -20,6 +25,8 @@ function Cities() {
     setOfferCurrentId(offerId);
   };
 
+  const handleSortingChange = (option: TSortOption) => dispatch(setSorting(option));
+
   const hasOffers = offers.length > 0;
 
   return (
@@ -30,7 +37,7 @@ function Cities() {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
-              <Sorting />
+              <Sorting activeSorting={activeSorting} onChange={handleSortingChange} />
               <PlacesList offers={offers} onPlaceCardHover={handlePlaceCardHover}/>
             </section>
             <div className="cities__right-section">
