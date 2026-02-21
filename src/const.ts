@@ -28,6 +28,13 @@ export enum MapPlace {
   Offer = 'offer'
 }
 
+export enum SortingType {
+  Popular = 'Popular',
+  PriceAsc = 'Price: low to high',
+  PriceDesc = 'Price: high to low',
+  TopRated = 'Top rated first'
+}
+
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;

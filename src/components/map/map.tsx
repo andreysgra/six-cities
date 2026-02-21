@@ -2,7 +2,7 @@ import {MapIcon, MapPlace} from '../../const';
 import {useEffect, useRef} from 'react';
 import 'leaflet/dist/leaflet.css';
 import {TCity} from '../../types/city';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {Icon, Marker} from 'leaflet';
 import {TLocation} from '../../types/location';
 
