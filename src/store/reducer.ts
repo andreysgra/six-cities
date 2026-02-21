@@ -1,7 +1,7 @@
 import {TCityName} from '../types/city';
 import {TOffers} from '../types/offer';
 import {Cities, SortingType} from '../const';
-import {createReducer} from '@reduxjs/toolkit/src';
+import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setOffers, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
 
