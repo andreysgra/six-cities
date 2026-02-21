@@ -3,15 +3,15 @@ import Favorites from '../../components/favorites/favorites';
 import {TOffers} from '../../types/offer';
 
 type FavoritesPageProps = {
-  favoriteOffers: TOffers;
+  offers: TOffers;
 }
 
-function FavoritesPage({favoriteOffers}: FavoritesPageProps) {
+function FavoritesPage({offers}: FavoritesPageProps) {
   return (
     <Fragment>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <Favorites favoriteOffers={favoriteOffers} />
+          <Favorites offers={offers} />
         </div>
       </main>
 
