@@ -37,3 +37,15 @@ export const SorterOffers: TSorterOffers = {
   PriceDesc: (a: TOffer, b: TOffer) => b.price - a.price,
   TopRated: (a: TOffer, b: TOffer) => b.rating - a.rating
 };
+
+export const groupBy = <K extends PropertyKey, T>(items: Iterable<T>, getKey: (item: T) => K) =>
+  Array.from(items).reduce(
+    (result, item) => {
+      const key = getKey(item);
+
+      (result[key] ??= []).push(item);
+
+      return result;
+    },
+    {} as Record<K, T[]>
+  );
