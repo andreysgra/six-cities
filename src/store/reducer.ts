@@ -1,20 +1,23 @@
 import {TCityName} from '../types/city';
 import {TOffers} from '../types/offer';
 import {Cities, SortingType} from '../const';
-import {createReducer} from '@reduxjs/toolkit/src';
-import {setCity, setOffers, setSorting} from './action';
+import {createReducer} from '@reduxjs/toolkit';
+import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
+import {fetchOffers} from './api-actions';
 
 type State = {
   city: TCityName;
   offers: TOffers;
   sorting: TSortOption;
+  isOffersLoading: boolean;
 }
 
 const initialState: State = {
   city: Cities[0],
   offers: [],
-  sorting: SortingType.Popular
+  sorting: SortingType.Popular,
+  isOffersLoading: false
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -22,10 +25,14 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setCity, (state, action) => {
       state.city = action.payload;
     })
-    .addCase(setOffers, (state, action) => {
-      state.offers = action.payload;
-    })
     .addCase(setSorting, (state, action) => {
       state.sorting = action.payload;
+    })
+    .addCase(fetchOffers.fulfilled, (state, action) => {
+      state.offers = action.payload;
+      state.isOffersLoading = false;
+    })
+    .addCase(fetchOffers.pending, (state) => {
+      state.isOffersLoading = true;
     });
 });
