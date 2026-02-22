@@ -9,6 +9,7 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {setSorting} from '../../store/action';
 import {TSortOption} from '../../types/sorting';
 import {SorterOffers} from '../../utils/utils';
+import Spinner from '../spinner/spinner';
 
 function Cities() {
   const activeCity = useAppSelector((state) => state.city);
@@ -19,9 +20,11 @@ function Cities() {
     .filter((offer) => offer.city.name === activeCity)
     .sort(SorterOffers[activeSorting]);
 
-  const locations = offers.map(({id, location}) => ({id, ...location}));
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
   const [offerCurrentId, setOfferCurrentId] = useState<string | null>(null);
+
+  const locations = offers.map(({id, location}) => ({id, ...location}));
 
   const handlePlaceCardHover = (offerId: string | null) => {
     setOfferCurrentId(offerId);
@@ -30,6 +33,10 @@ function Cities() {
   const handleSortingChange = (option: TSortOption) => dispatch(setSorting(option));
 
   const hasOffers = offers.length > 0;
+
+  if (isOffersLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="cities">

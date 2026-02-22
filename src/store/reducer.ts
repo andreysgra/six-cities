@@ -10,12 +10,14 @@ type State = {
   city: TCityName;
   offers: TOffers;
   sorting: TSortOption;
+  isOffersLoading: boolean;
 }
 
 const initialState: State = {
   city: Cities[0],
   offers: [],
-  sorting: SortingType.Popular
+  sorting: SortingType.Popular,
+  isOffersLoading: false
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -28,5 +30,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffers.fulfilled, (state, action) => {
       state.offers = action.payload;
+      state.isOffersLoading = false;
+    })
+    .addCase(fetchOffers.pending, (state) => {
+      state.isOffersLoading = true;
     });
 });
