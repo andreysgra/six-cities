@@ -7,19 +7,17 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {TOffers} from '../../types/offer';
 import {TReviews} from '../../types/review';
 import {nearbyOffers} from '../../mocks/nearby-offers';
 import {offer} from '../../mocks/offer';
 
 type AppProps = {
-  offers: TOffers;
   reviews: TReviews;
 }
 
 const authorizationStatus = AuthorizationStatus.NoAuth;
 
-function App({offers, reviews}: AppProps) {
+function App({reviews}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
@@ -55,7 +53,7 @@ function App({offers, reviews}: AppProps) {
                 restrictedFor={AuthorizationStatus.NoAuth}
                 redirectedTo={AppRoute.Login}
               >
-                <FavoritesPage offers={offers} />
+                <FavoritesPage />
               </PrivateRoute>
             }
           />

@@ -4,12 +4,11 @@ import {AppRoute, OfferPlace} from '../../const';
 import PlaceCard from '../place-card/place-card';
 import FavoritesEmpty from '../favorites-empty/favorites-empty';
 import {groupBy} from '../../utils/utils';
+import {useAppSelector} from '../../hooks/use-app-selector';
 
-type FavoritesProps = {
-  offers: TOffers;
-}
+function Favorites() {
+  const offers = useAppSelector((state) => state.offers);
 
-function Favorites({offers}: FavoritesProps) {
   const offersGropedByCity = groupBy(offers, (offer) => offer.city.name);
 
   const groupedFavoriteOffers = Object.entries(offersGropedByCity);

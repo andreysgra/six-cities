@@ -1,19 +1,14 @@
 import {Fragment} from 'react';
 import Favorites from '../../components/favorites/favorites';
-import {TOffers} from '../../types/offer';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 
-type FavoritesPageProps = {
-  offers: TOffers;
-}
-
-function FavoritesPage({offers}: FavoritesPageProps) {
+function FavoritesPage() {
   return (
     <Fragment>
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <Favorites offers={offers} />
+          <Favorites />
         </div>
       </main>
 
