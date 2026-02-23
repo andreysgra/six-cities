@@ -15,15 +15,13 @@ type AppProps = {
   reviews: TReviews;
 }
 
-const authorizationStatus = AuthorizationStatus.NoAuth;
-
 function App({reviews}: AppProps) {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Root}
-          element={<Layout authorizationStatus={authorizationStatus} />}
+          element={<Layout />}
         >
           <Route
             index
@@ -33,7 +31,6 @@ function App({reviews}: AppProps) {
             path={AppRoute.Login}
             element={
               <PrivateRoute
-                authorizationStatus={authorizationStatus}
                 restrictedFor={AuthorizationStatus.Auth}
                 redirectedTo={AppRoute.Root}
               >
@@ -49,7 +46,6 @@ function App({reviews}: AppProps) {
             path={AppRoute.Favorites}
             element={
               <PrivateRoute
-                authorizationStatus={authorizationStatus}
                 restrictedFor={AuthorizationStatus.NoAuth}
                 redirectedTo={AppRoute.Login}
               >

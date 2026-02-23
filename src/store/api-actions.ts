@@ -2,6 +2,8 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {TOffers} from '../types/offer';
 import {AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
+import {TUser, TUserAuth} from '../types/user';
+import {dropToken, saveToken} from '../services/token';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',
@@ -9,5 +11,35 @@ export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosIns
     const {data} = await api.get<TOffers>(ApiRoute.Offers);
 
     return data;
+  }
+);
+
+export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>(
+  'user/fetch-status',
+  async (_, {extra: api}) => {
+    const {data} = await api.get<TUser>(ApiRoute.Login);
+
+    return data;
+  }
+);
+
+export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>(
+  'user/login',
+  async ({email, password}, {extra: api}) => {
+    const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
+    const {token} = data;
+
+    saveToken(token);
+
+    return email;
+  }
+);
+
+export const logoutUser = createAsyncThunk<void, undefined, { extra: AxiosInstance }>(
+  'user/logout',
+  async (_, {extra: api}) => {
+    await api.delete(ApiRoute.Logout);
+
+    dropToken();
   }
 );

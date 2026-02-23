@@ -1,23 +1,28 @@
 import {TCityName} from '../types/city';
 import {TOffers} from '../types/offer';
-import {Cities, SortingType} from '../const';
+import {AuthorizationStatus, Cities, SortingType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
-import {fetchOffers} from './api-actions';
+import {fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
+import {TUser} from '../types/user';
 
 type State = {
   city: TCityName;
   offers: TOffers;
   sorting: TSortOption;
   isOffersLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  user: TUser['email'];
 }
 
 const initialState: State = {
   city: Cities[0],
   offers: [],
   sorting: SortingType.Popular,
-  isOffersLoading: false
+  isOffersLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: ''
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -34,5 +39,20 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
+    })
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload.email;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(fetchUserStatus.rejected, (state) => {
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
+    })
+    .addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.user = '';
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
 });

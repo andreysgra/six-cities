@@ -2,13 +2,23 @@ import Logo from '../logo/logo';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {Fragment} from 'react';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {logoutUser} from '../../store/api-actions';
 
-type LayoutProps = {
-  authorizationStatus: AuthorizationStatus;
-}
+function Layout() {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
 
-function Layout({authorizationStatus}: LayoutProps) {
+  const dispatch = useAppDispatch();
+
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleLogoutClick = () => {
+    if (isAuthorized) {
+      dispatch(logoutUser());
+    }
+  };
 
   let rootClass: string;
 
@@ -51,7 +61,7 @@ function Layout({authorizationStatus}: LayoutProps) {
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {isAuthorized ?
                         <Fragment>
-                          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                          <span className="header__user-name user__name">{user}</span>
                           <span className="header__favorite-count">3</span>
                         </Fragment>
                         :
@@ -60,9 +70,9 @@ function Layout({authorizationStatus}: LayoutProps) {
                   </li>
                   {isAuthorized && (
                     <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
+                      <Link className="header__nav-link" to={AppRoute.Root} onClick={handleLogoutClick}>
                         <span className="header__signout">Sign out</span>
-                      </a>
+                      </Link>
                     </li>
                   )}
                 </ul>

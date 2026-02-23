@@ -9,7 +9,8 @@ export enum AppRoute {
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
-  NoAuth = 'NO_AUTH'
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN'
 }
 
 export enum OfferPlace {
@@ -73,3 +74,5 @@ export const MapIcon = {
   Size: [27, 39] as [number, number],
   Anchor: [13.5, 39] as [number, number]
 } as const;
+
+export const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
