@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {TOffers} from '../types/offer';
+import {TOfferDetailed, TOffers} from '../types/offer';
 import {AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
 import {TUser, TUserAuth} from '../types/user';
@@ -9,6 +9,15 @@ export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosIns
   'offers/fetch',
   async (_, {extra: api}) => {
     const {data} = await api.get<TOffers>(ApiRoute.Offers);
+
+    return data;
+  }
+);
+
+export const fetchOffer = createAsyncThunk<TOfferDetailed, TOfferDetailed['id'], { extra: AxiosInstance }>(
+  'offer/fetch',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<TOfferDetailed>(`${ApiRoute.Offers}/${id}`);
 
     return data;
   }

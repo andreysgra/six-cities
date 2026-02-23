@@ -1,17 +1,19 @@
 import {TCityName} from '../types/city';
-import {TOffers} from '../types/offer';
+import {TOfferDetailed, TOffers} from '../types/offer';
 import {AuthorizationStatus, Cities, SortingType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
-import {fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
+import {fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
 import {TUser} from '../types/user';
 
 type State = {
   city: TCityName;
   offers: TOffers;
+  offer: TOfferDetailed | null;
   sorting: TSortOption;
   isOffersLoading: boolean;
+  isOfferLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: TUser['email'];
 }
@@ -19,8 +21,10 @@ type State = {
 const initialState: State = {
   city: Cities[0],
   offers: [],
+  offer: null,
   sorting: SortingType.Popular,
   isOffersLoading: false,
+  isOfferLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: ''
 };
@@ -39,6 +43,16 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
+    })
+    .addCase(fetchOffer.fulfilled, (state, action) => {
+      state.offer = action.payload;
+      state.isOfferLoading = false;
+    })
+    .addCase(fetchOffer.pending, (state) => {
+      state.isOfferLoading = true;
+    })
+    .addCase(fetchOffer.rejected, (state) => {
+      state.isOfferLoading = false;
     })
     .addCase(fetchUserStatus.fulfilled, (state, action) => {
       state.user = action.payload.email;
