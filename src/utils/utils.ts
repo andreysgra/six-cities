@@ -49,3 +49,6 @@ export const groupBy = <K extends PropertyKey, T>(items: Iterable<T>, getKey: (i
     },
     {} as Record<K, T[]>
   );
+
+export const getRandomElement =
+  <T>(array: readonly T[]): T => array[Math.floor(Math.random() * array.length)];
