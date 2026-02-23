@@ -6,6 +6,7 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 
 function Layout() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const user = useAppSelector((state) => state.user);
 
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
@@ -50,7 +51,7 @@ function Layout() {
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {isAuthorized ?
                         <Fragment>
-                          <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                          <span className="header__user-name user__name">{user}</span>
                           <span className="header__favorite-count">3</span>
                         </Fragment>
                         :
