@@ -1,22 +1,50 @@
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import {TReviews} from '../../types/review';
-import {Fragment} from 'react';
-import {TOfferDetailed, TOffers} from '../../types/offer';
+import React, {Fragment, useEffect} from 'react';
+import {TOffers} from '../../types/offer';
 import NearPlacesList from '../../components/near-places-list/near-places-list';
-import {City, MapPlace, NEARBY_OFFERS_COUNT} from '../../const';
+import {AuthorizationStatus, City, MapPlace, NEARBY_OFFERS_COUNT} from '../../const';
 import {shuffleArray} from '../../utils/utils';
 import Map from '../../components/map/map';
 import OfferDescription from '../../components/offer-description/offer-description';
 import OfferGallery from '../../components/offer-gallery/offer-gallery';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useParams} from 'react-router-dom';
+import {fetchOffer} from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 type OfferPageProps = {
   reviews: TReviews;
-  offer: TOfferDetailed;
   nearByOffers: TOffers;
 }
 
-function OfferPage({reviews, offer, nearByOffers}: OfferPageProps) {
+function OfferPage({reviews, nearByOffers}: OfferPageProps): React.JSX.Element | null {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const offer = useAppSelector((state) => state.offer);
+  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+
+  const dispatch = useAppDispatch();
+
+  const params = useParams();
+
+  useEffect(() => {
+    const {id} = params;
+
+    if (id) {
+      dispatch(fetchOffer(id));
+    }
+  }, [params, dispatch]);
+
+  if (!offer) {
+    return null;
+  }
+
+  if (isOfferLoading) {
+    return <Spinner />;
+  }
+
   const randomNearByOffers = shuffleArray(nearByOffers).slice(0, NEARBY_OFFERS_COUNT);
 
   const locations = randomNearByOffers
@@ -44,8 +72,7 @@ function OfferPage({reviews, offer, nearByOffers}: OfferPageProps) {
                   <ReviewsList reviews={reviews}/>
                 </Fragment>
               )}
-              {/*TODO Добавить проверку авторизации пользователя*/}
-              <ReviewForm />
+              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>}
             </section>
           </div>
         </div>
