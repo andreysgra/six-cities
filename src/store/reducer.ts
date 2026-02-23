@@ -40,7 +40,8 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers.pending, (state) => {
       state.isOffersLoading = true;
     })
-    .addCase(fetchUserStatus.fulfilled, (state) => {
+    .addCase(fetchUserStatus.fulfilled, (state, action) => {
+      state.user = action.payload.email;
       state.authorizationStatus = AuthorizationStatus.Auth;
     })
     .addCase(fetchUserStatus.rejected, (state) => {
