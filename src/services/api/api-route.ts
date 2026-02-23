@@ -1,3 +1,4 @@
 export enum ApiRoute {
-  Offers = '/offers'
+  Offers = '/offers',
+  Login = '/login'
 }
