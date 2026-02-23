@@ -3,7 +3,7 @@ import {TOffers} from '../types/offer';
 import {AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
 import {TUser, TUserAuth} from '../types/user';
-import {saveToken} from '../services/token';
+import {dropToken, saveToken} from '../services/token';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',
@@ -32,5 +32,14 @@ export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra
     saveToken(token);
 
     return email;
+  }
+);
+
+export const logoutUser = createAsyncThunk<void, undefined, { extra: AxiosInstance }>(
+  'user/logout',
+  async (_, {extra: api}) => {
+    await api.delete(ApiRoute.Logout);
+
+    dropToken();
   }
 );

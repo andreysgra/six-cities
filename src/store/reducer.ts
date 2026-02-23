@@ -4,7 +4,7 @@ import {AuthorizationStatus, Cities, SortingType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
-import {fetchOffers, fetchUserStatus, loginUser} from './api-actions';
+import {fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
 import {TUser} from '../types/user';
 
 type State = {
@@ -21,7 +21,7 @@ const initialState: State = {
   offers: [],
   sorting: SortingType.Popular,
   isOffersLoading: false,
-  authorizationStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Unknown,
   user: ''
 };
 
@@ -50,5 +50,9 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
       state.authorizationStatus = AuthorizationStatus.Auth;
+    })
+    .addCase(logoutUser.fulfilled, (state) => {
+      state.user = '';
+      state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
 });

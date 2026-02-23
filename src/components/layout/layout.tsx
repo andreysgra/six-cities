@@ -3,12 +3,22 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {logoutUser} from '../../store/api-actions';
 
 function Layout() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
 
+  const dispatch = useAppDispatch();
+
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  const handleLogoutClick = () => {
+    if (isAuthorized) {
+      dispatch(logoutUser());
+    }
+  };
 
   let rootClass: string;
 
@@ -60,9 +70,9 @@ function Layout() {
                   </li>
                   {isAuthorized && (
                     <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
+                      <Link className="header__nav-link" to={AppRoute.Root} onClick={handleLogoutClick}>
                         <span className="header__signout">Sign out</span>
-                      </a>
+                      </Link>
                     </li>
                   )}
                 </ul>
