@@ -2,12 +2,11 @@ import Logo from '../logo/logo';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {Fragment} from 'react';
+import {useAppSelector} from '../../hooks/use-app-selector';
 
-type LayoutProps = {
-  authorizationStatus: AuthorizationStatus;
-}
+function Layout() {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-function Layout({authorizationStatus}: LayoutProps) {
   const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   let rootClass: string;
