@@ -5,7 +5,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
 import {
-  fetchComments,
+  fetchComments, fetchFavoriteOffers,
   fetchNearbyOffers,
   fetchOffer,
   fetchOffers,
@@ -21,10 +21,12 @@ type State = {
   offers: TOffers;
   offer: TOfferDetailed | null;
   nearByOffers: TOffers;
+  favoriteOffers: TOffers;
   comments: TReviews;
   sorting: TSortOption;
   isOffersLoading: boolean;
   isOfferLoading: boolean;
+  isFavoriteOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: TUser['email'];
 }
@@ -34,10 +36,12 @@ const initialState: State = {
   offers: [],
   offer: null,
   nearByOffers: [],
+  favoriteOffers: [],
   comments: [],
   sorting: SortingType.Popular,
   isOffersLoading: false,
   isOfferLoading: false,
+  isFavoriteOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   user: ''
 };
@@ -69,6 +73,15 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchNearbyOffers.fulfilled, (state, action) => {
       state.nearByOffers = action.payload;
+    })
+    .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
+      state.favoriteOffers = action.payload;
+    })
+    .addCase(fetchFavoriteOffers.pending, (state) => {
+      state.isFavoriteOffersLoading = true;
+    })
+    .addCase(fetchFavoriteOffers.rejected, (state) => {
+      state.isFavoriteOffersLoading = false;
     })
     .addCase(fetchComments.fulfilled, (state, action) => {
       state.comments = action.payload;

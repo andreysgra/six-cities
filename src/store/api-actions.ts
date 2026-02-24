@@ -50,6 +50,15 @@ export const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], {extra:
   }
 );
 
+export const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
+  'offers/fetch-favorite',
+  async (_, {extra: api}) => {
+    const {data} = await api.get<TOffers>(ApiRoute.Favorite);
+
+    return data;
+  }
+);
+
 export const fetchComments = createAsyncThunk<TReviews, TOffer['id'], {extra: AxiosInstance}>(
   'offer/fetch-comments',
   async (id, {extra: api}) => {
@@ -68,7 +77,7 @@ export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosI
   }
 );
 
-export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra: AxiosInstance }>(
+export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, {extra: AxiosInstance}>(
   'user/login',
   async ({email, password}, {extra: api}) => {
     const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
@@ -81,7 +90,7 @@ export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra
   }
 );
 
-export const logoutUser = createAsyncThunk<void, undefined, { extra: AxiosInstance }>(
+export const logoutUser = createAsyncThunk<void, undefined, {extra: AxiosInstance}>(
   'user/logout',
   async (_, {extra: api}) => {
     await api.delete(ApiRoute.Logout);
