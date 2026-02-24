@@ -1,9 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {TOfferDetailed, TOffers} from '../types/offer';
-import {AxiosInstance} from 'axios';
+import {AxiosError, AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
 import {TUser, TUserAuth} from '../types/user';
 import {dropToken, saveToken} from '../services/token';
+import {AppRoute, HttpCode} from '../const';
+import {redirectToRoute} from './action';
+import {AppDispatch} from '../types/state';
+import browserHistory from '../services/browser-history';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',
@@ -14,12 +18,25 @@ export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosIns
   }
 );
 
-export const fetchOffer = createAsyncThunk<TOfferDetailed, TOfferDetailed['id'], { extra: AxiosInstance }>(
+export const fetchOffer = createAsyncThunk<TOfferDetailed, TOfferDetailed['id'], {
+  extra: AxiosInstance;
+  dispatch: AppDispatch;
+}>(
   'offer/fetch',
-  async (id, {extra: api}) => {
-    const {data} = await api.get<TOfferDetailed>(`${ApiRoute.Offers}/${id}`);
+  async (id, {extra: api, dispatch}) => {
+    try {
+      const {data} = await api.get<TOfferDetailed>(`${ApiRoute.Offers}/${id}`);
 
-    return data;
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+
+      if (axiosError.response?.status === HttpCode.NotFound) {
+        dispatch(redirectToRoute(AppRoute.NotFound));
+      }
+
+      return Promise.reject(error);
+    }
   }
 );
 
@@ -39,6 +56,7 @@ export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, { extra
     const {token} = data;
 
     saveToken(token);
+    browserHistory.back();
 
     return email;
   }
