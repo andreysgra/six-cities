@@ -10,8 +10,9 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useParams} from 'react-router-dom';
-import {fetchComments, fetchNearbyOffers, fetchOffer} from '../../store/api-actions';
+import {fetchComments, fetchNearbyOffers, fetchOffer, postComment} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
+import {TReviewContent} from '../../types/review';
 
 function OfferPage(): React.JSX.Element | null {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -51,6 +52,10 @@ function OfferPage(): React.JSX.Element | null {
 
   locations.push({id: offer.id, ...offer.location});
 
+  const handleFormSubmit = (formData: Omit<TReviewContent, 'id'>) => {
+    dispatch(postComment({id: offer.id, ...formData}));
+  };
+
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -66,10 +71,10 @@ function OfferPage(): React.JSX.Element | null {
                   <h2 className="reviews__title">
                     Reviews · <span className="reviews__amount">{comments.length}</span>
                   </h2>
-                  <ReviewsList reviews={comments}/>
+                  <ReviewsList reviews={comments} />
                 </Fragment>
               )}
-              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>}
+              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={handleFormSubmit} />}
             </section>
           </div>
         </div>
