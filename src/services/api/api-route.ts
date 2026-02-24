@@ -1,5 +1,7 @@
 export enum ApiRoute {
   Offers = '/offers',
+  Comments = '/comments',
   Login = '/login',
-  Logout = '/logout'
+  Logout = '/logout',
+  Favorite = '/favorite'
 }

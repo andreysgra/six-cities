@@ -8,4 +8,6 @@ export type TReview = {
   rating: number;
 }
 
+export type TReviewContent = Omit<TReview, 'date' | 'user'>;
+
 export type TReviews = TReview[];

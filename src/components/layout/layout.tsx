@@ -5,10 +5,12 @@ import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {logoutUser} from '../../store/api-actions';
+import classNames from 'classnames';
 
 function Layout() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const user = useAppSelector((state) => state.user);
+  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
 
   const dispatch = useAppDispatch();
 
@@ -33,9 +35,7 @@ function Layout() {
       rootClass = 'page--gray page--login';
       break;
     case AppRoute.Favorites:
-      /*TODO Добавить условие для класса пустого списка
-      *  favoriteOffers.length === 0 ? 'page--favorites-empty' : ''*/
-      rootClass = '';
+      rootClass = favoriteOffers.length === 0 ? 'page--favorites-empty' : '';
       break;
     case AppRoute.Offer:
       rootClass = '';
@@ -45,7 +45,7 @@ function Layout() {
   }
 
   return (
-    <div className={`page ${rootClass}`}>
+    <div className={classNames('page', {[rootClass]: rootClass !== ''})}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -62,7 +62,7 @@ function Layout() {
                       {isAuthorized ?
                         <Fragment>
                           <span className="header__user-name user__name">{user}</span>
-                          <span className="header__favorite-count">3</span>
+                          <span className="header__favorite-count">{favoriteOffers.length}</span>
                         </Fragment>
                         :
                         <span className="header__login">Sign in</span>}

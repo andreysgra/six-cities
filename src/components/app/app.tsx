@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main-page/main-page';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -7,17 +7,12 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {TReviews} from '../../types/review';
-import {nearbyOffers} from '../../mocks/nearby-offers';
-import {offer} from '../../mocks/offer';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../services/browser-history';
 
-type AppProps = {
-  reviews: TReviews;
-}
-
-function App({reviews}: AppProps) {
+function App() {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -40,7 +35,7 @@ function App({reviews}: AppProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage reviews={reviews} offer={offer} nearByOffers={nearbyOffers} />}
+            element={<OfferPage />}
           />
           <Route
             path={AppRoute.Favorites}
@@ -59,7 +54,7 @@ function App({reviews}: AppProps) {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
