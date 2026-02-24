@@ -17,6 +17,7 @@ import {
 } from './api-actions';
 import {TUser} from '../types/user';
 import {TReviews} from '../types/review';
+import {SubmitStatus} from '../services/api/const';
 
 type State = {
   city: TCityName;
@@ -31,6 +32,7 @@ type State = {
   isFavoriteOffersLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   user: TUser['email'];
+  commentStatus: SubmitStatus;
 }
 
 const initialState: State = {
@@ -45,7 +47,8 @@ const initialState: State = {
   isOfferLoading: false,
   isFavoriteOffersLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: ''
+  user: '',
+  commentStatus: SubmitStatus.Still
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -90,6 +93,13 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(postComment.fulfilled, (state, action) => {
       state.comments.push(action.payload);
+      state.commentStatus = SubmitStatus.Fulfilled;
+    })
+    .addCase(postComment.pending, (state) => {
+      state.commentStatus = SubmitStatus.Pending;
+    })
+    .addCase(postComment.rejected, (state) => {
+      state.commentStatus = SubmitStatus.Rejected;
     })
     .addCase(fetchUserStatus.fulfilled, (state, action) => {
       state.user = action.payload.email;
