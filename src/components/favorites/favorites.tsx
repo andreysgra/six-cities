@@ -7,7 +7,7 @@ import {groupBy} from '../../utils/utils';
 import {useAppSelector} from '../../hooks/use-app-selector';
 
 function Favorites() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.favoriteOffers);
 
   const offersGropedByCity = groupBy(offers, (offer) => offer.city.name);
 
