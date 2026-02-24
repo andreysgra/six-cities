@@ -4,13 +4,15 @@ import {AuthorizationStatus, Cities, SortingType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
-import {fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
+import {fetchComments, fetchOffer, fetchOffers, fetchUserStatus, loginUser, logoutUser} from './api-actions';
 import {TUser} from '../types/user';
+import {TReviews} from '../types/review';
 
 type State = {
   city: TCityName;
   offers: TOffers;
   offer: TOfferDetailed | null;
+  comments: TReviews;
   sorting: TSortOption;
   isOffersLoading: boolean;
   isOfferLoading: boolean;
@@ -22,6 +24,7 @@ const initialState: State = {
   city: Cities[0],
   offers: [],
   offer: null,
+  comments: [],
   sorting: SortingType.Popular,
   isOffersLoading: false,
   isOfferLoading: false,
@@ -53,6 +56,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchOffer.rejected, (state) => {
       state.isOfferLoading = false;
+    })
+    .addCase(fetchComments.fulfilled, (state, action) => {
+      state.comments = action.payload;
     })
     .addCase(fetchUserStatus.fulfilled, (state, action) => {
       state.user = action.payload.email;

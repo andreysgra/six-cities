@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {TOfferDetailed, TOffers} from '../types/offer';
+import {TOffer, TOfferDetailed, TOffers} from '../types/offer';
 import {AxiosError, AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
 import {TUser, TUserAuth} from '../types/user';
@@ -8,6 +8,7 @@ import {AppRoute, HttpCode} from '../const';
 import {redirectToRoute} from './action';
 import {AppDispatch} from '../types/state';
 import browserHistory from '../services/browser-history';
+import {TReviews} from '../types/review';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',
@@ -37,6 +38,15 @@ export const fetchOffer = createAsyncThunk<TOfferDetailed, TOfferDetailed['id'],
 
       return Promise.reject(error);
     }
+  }
+);
+
+export const fetchComments = createAsyncThunk<TReviews, TOffer['id'], {extra: AxiosInstance}>(
+  'offer/fetch-comments',
+  async (id, {extra: api}) => {
+    const {data} = await api.get<TReviews>(`${ApiRoute.Comments}/${id}`);
+
+    return data;
   }
 );
 
