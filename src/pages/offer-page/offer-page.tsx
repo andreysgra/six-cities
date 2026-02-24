@@ -1,6 +1,5 @@
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import {TReviews} from '../../types/review';
 import React, {Fragment, useEffect} from 'react';
 import {TOffers} from '../../types/offer';
 import NearPlacesList from '../../components/near-places-list/near-places-list';
@@ -12,18 +11,18 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useParams} from 'react-router-dom';
-import {fetchOffer} from '../../store/api-actions';
+import {fetchComments, fetchOffer} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 
 type OfferPageProps = {
-  reviews: TReviews;
   nearByOffers: TOffers;
 }
 
-function OfferPage({reviews, nearByOffers}: OfferPageProps): React.JSX.Element | null {
+function OfferPage({nearByOffers}: OfferPageProps): React.JSX.Element | null {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offer = useAppSelector((state) => state.offer);
   const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
+  const comments = useAppSelector((state) => state.comments);
 
   const dispatch = useAppDispatch();
 
@@ -34,6 +33,7 @@ function OfferPage({reviews, nearByOffers}: OfferPageProps): React.JSX.Element |
 
     if (id) {
       dispatch(fetchOffer(id));
+      dispatch(fetchComments(id));
     }
   }, [params, dispatch]);
 
@@ -64,12 +64,12 @@ function OfferPage({reviews, nearByOffers}: OfferPageProps): React.JSX.Element |
           <div className="offer__wrapper">
             <OfferDescription offer={offer} />
             <section className="offer__reviews reviews">
-              {reviews.length > 0 && (
+              {comments.length > 0 && (
                 <Fragment>
                   <h2 className="reviews__title">
-                    Reviews · <span className="reviews__amount">{reviews.length}</span>
+                    Reviews · <span className="reviews__amount">{comments.length}</span>
                   </h2>
-                  <ReviewsList reviews={reviews}/>
+                  <ReviewsList reviews={comments}/>
                 </Fragment>
               )}
               {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm/>}

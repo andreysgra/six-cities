@@ -7,16 +7,11 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {TReviews} from '../../types/review';
 import {nearbyOffers} from '../../mocks/nearby-offers';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../services/browser-history';
 
-type AppProps = {
-  reviews: TReviews;
-}
-
-function App({reviews}: AppProps) {
+function App() {
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -41,7 +36,7 @@ function App({reviews}: AppProps) {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage reviews={reviews} nearByOffers={nearbyOffers} />}
+            element={<OfferPage nearByOffers={nearbyOffers} />}
           />
           <Route
             path={AppRoute.Favorites}
