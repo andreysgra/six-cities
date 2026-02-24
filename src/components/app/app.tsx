@@ -7,7 +7,6 @@ import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
-import {nearbyOffers} from '../../mocks/nearby-offers';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../services/browser-history';
 
@@ -36,7 +35,7 @@ function App() {
           />
           <Route
             path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage nearByOffers={nearbyOffers} />}
+            element={<OfferPage />}
           />
           <Route
             path={AppRoute.Favorites}
