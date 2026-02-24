@@ -8,7 +8,7 @@ import {AppRoute, HttpCode} from '../const';
 import {redirectToRoute} from './action';
 import {AppDispatch} from '../types/state';
 import browserHistory from '../services/browser-history';
-import {TReviews} from '../types/review';
+import {TReview, TReviewContent, TReviews} from '../types/review';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',
@@ -67,6 +67,16 @@ export const fetchComments = createAsyncThunk<TReviews, TOffer['id'], {extra: Ax
     return data;
   }
 );
+
+export const postComment = createAsyncThunk<TReview, TReviewContent, {extra: AxiosInstance}>(
+  'offer/post-comment',
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<TReview>(`${ApiRoute.Comments}/${id}`, {comment, rating});
+
+    return data;
+  }
+);
+
 
 export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>(
   'user/fetch-status',
