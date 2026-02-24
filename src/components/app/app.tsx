@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main-page/main-page';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -9,6 +9,8 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import {TReviews} from '../../types/review';
 import {nearbyOffers} from '../../mocks/nearby-offers';
+import HistoryRouter from '../history-router/history-router';
+import browserHistory from '../../services/browser-history';
 
 type AppProps = {
   reviews: TReviews;
@@ -16,7 +18,7 @@ type AppProps = {
 
 function App({reviews}: AppProps) {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Root}
@@ -58,7 +60,7 @@ function App({reviews}: AppProps) {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
