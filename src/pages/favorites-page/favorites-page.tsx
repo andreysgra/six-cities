@@ -4,9 +4,16 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import classNames from 'classnames';
+import Spinner from '../../components/spinner/spinner';
 
 function FavoritesPage() {
   const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+
+  const isFavoriteOffersLoading = useAppSelector((state) => state.isFavoriteOffersLoading);
+
+  if (isFavoriteOffersLoading) {
+    return <Spinner />;
+  }
 
   const favoriteClassName =
     classNames('page__main page__main--favorites', {'page__main--favorites-empty': favoriteOffers.length === 0});

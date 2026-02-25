@@ -81,6 +81,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(fetchFavoriteOffers.fulfilled, (state, action) => {
       state.favoriteOffers = action.payload;
+      state.isFavoriteOffersLoading = false;
     })
     .addCase(fetchFavoriteOffers.pending, (state) => {
       state.isFavoriteOffersLoading = true;

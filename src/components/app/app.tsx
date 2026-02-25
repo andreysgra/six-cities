@@ -9,8 +9,23 @@ import PrivateRoute from '../private-route/private-route';
 import Layout from '../layout/layout';
 import HistoryRouter from '../history-router/history-router';
 import browserHistory from '../../services/browser-history';
+import {useAppSelector} from '../../hooks/use-app-selector';
+import {useAppDispatch} from '../../hooks/use-app-dispatch';
+import {useEffect} from 'react';
+import {fetchFavoriteOffers} from '../../store/api-actions';
 
 function App() {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+
+  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    if (isAuthorized) {
+      dispatch(fetchFavoriteOffers());
+    }
+  }, [isAuthorized, dispatch]);
+
   return (
     <HistoryRouter history={browserHistory}>
       <Routes>
