@@ -10,17 +10,22 @@ import OfferGallery from '../../components/offer-gallery/offer-gallery';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useParams} from 'react-router-dom';
-import {fetchComments, fetchNearbyOffers, fetchOffer, postComment} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import {TReviewContent} from '../../types/review';
-import {AuthorizationStatus} from '../../services/api/const';
+import {getIsAuthorized} from '../../store/user/selectors';
+import {getIsOfferLoading, getOffer} from '../../store/offer/selectors';
+import {getNearByOffers} from '../../store/offers/selectors';
+import {getComments} from '../../store/comments/selectors';
+import {fetchOffer} from '../../store/offer/api-actions';
+import {fetchComments, postComment} from '../../store/comments/api-actions';
+import {fetchNearbyOffers} from '../../store/offers/api-actions';
 
 function OfferPage(): React.JSX.Element | null {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const offer = useAppSelector((state) => state.offer);
-  const nearByOffers = useAppSelector((state) => state.nearByOffers);
-  const isOfferLoading = useAppSelector((state) => state.isOfferLoading);
-  const comments = useAppSelector((state) => state.comments);
+  const offer = useAppSelector(getOffer);
+  const nearByOffers = useAppSelector(getNearByOffers);
+  const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const comments = useAppSelector(getComments);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   const dispatch = useAppDispatch();
 
@@ -73,7 +78,7 @@ function OfferPage(): React.JSX.Element | null {
                   <ReviewsList reviews={comments} />
                 </Fragment>
               )}
-              {authorizationStatus === AuthorizationStatus.Auth && <ReviewForm onSubmit={handleFormSubmit} />}
+              {isAuthorized && <ReviewForm onSubmit={handleFormSubmit} />}
             </section>
           </div>
         </div>

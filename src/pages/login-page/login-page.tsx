@@ -1,11 +1,11 @@
 import LoginForm from '../../components/login-form/login-form';
 import {MouseEvent} from 'react';
-import {setCity} from '../../store/action';
 import {TCityName} from '../../types/city';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {getRandomElement} from '../../utils/utils';
 import {AppRoute, Cities} from '../../const';
 import {Link} from 'react-router-dom';
+import {setCity} from '../../store/site-process/slice';
 
 function LoginPage() {
   const dispatch = useAppDispatch();

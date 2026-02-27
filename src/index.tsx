@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import {Provider} from 'react-redux';
 import store from './store';
-import {fetchOffers, fetchUserStatus} from './store/api-actions';
+import {fetchUserStatus} from './store/user/api-actions';
+import {fetchOffers} from './store/offers/api-actions';
 
 store.dispatch(fetchUserStatus());
 store.dispatch(fetchOffers());

@@ -4,18 +4,17 @@ import {Link, Outlet, useLocation} from 'react-router-dom';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {logoutUser} from '../../store/api-actions';
 import classNames from 'classnames';
-import {AuthorizationStatus} from '../../services/api/const';
+import {getIsAuthorized, getUser} from '../../store/user/selectors';
+import {getFavoriteOffers} from '../../store/offers/selectors';
+import {logoutUser} from '../../store/user/api-actions';
 
 function Layout() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const user = useAppSelector((state) => state.user);
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
+  const user = useAppSelector(getUser);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
   const dispatch = useAppDispatch();
-
-  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
 
   const handleLogoutClick = () => {
     if (isAuthorized) {

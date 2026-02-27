@@ -5,11 +5,11 @@ import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import classNames from 'classnames';
 import Spinner from '../../components/spinner/spinner';
+import {getFavoriteOffers, getIsFavoriteOffersLoading} from '../../store/offers/selectors';
 
 function FavoritesPage() {
-  const favoriteOffers = useAppSelector((state) => state.favoriteOffers);
-
-  const isFavoriteOffersLoading = useAppSelector((state) => state.isFavoriteOffersLoading);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
+  const isFavoriteOffersLoading = useAppSelector(getIsFavoriteOffersLoading);
 
   if (isFavoriteOffersLoading) {
     return <Spinner />;

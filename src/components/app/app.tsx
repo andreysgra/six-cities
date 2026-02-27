@@ -12,14 +12,14 @@ import browserHistory from '../../services/browser-history';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useEffect} from 'react';
-import {fetchFavoriteOffers} from '../../store/api-actions';
 import {AuthorizationStatus} from '../../services/api/const';
+import {getIsAuthorized} from '../../store/user/selectors';
+import {fetchFavoriteOffers} from '../../store/offers/api-actions';
 
 function App() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const dispatch = useAppDispatch();
+  const isAuthorized = useAppSelector(getIsAuthorized);
 
-  const isAuthorized = authorizationStatus === AuthorizationStatus.Auth;
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isAuthorized) {
