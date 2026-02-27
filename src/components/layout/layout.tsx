@@ -1,11 +1,12 @@
 import Logo from '../logo/logo';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 import {Fragment} from 'react';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {logoutUser} from '../../store/api-actions';
 import classNames from 'classnames';
+import {AuthorizationStatus} from '../../services/api/const';
 
 function Layout() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -29,6 +30,7 @@ function Layout() {
 
   switch (path) {
     case AppRoute.Root:
+    case AppRoute.NotFound:
       rootClass = 'page--gray page--main';
       break;
     case AppRoute.Login:

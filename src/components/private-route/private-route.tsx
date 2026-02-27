@@ -1,7 +1,8 @@
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import React from 'react';
 import {Navigate} from 'react-router-dom';
 import {useAppSelector} from '../../hooks/use-app-selector';
+import {AuthorizationStatus} from '../../services/api/const';
 
 type PrivateRouteProps = {
   children: React.JSX.Element;

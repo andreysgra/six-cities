@@ -4,11 +4,12 @@ import {AxiosError, AxiosInstance} from 'axios';
 import {ApiRoute} from '../services/api/api-route';
 import {TUser, TUserAuth} from '../types/user';
 import {dropToken, saveToken} from '../services/token';
-import {AppRoute, HttpCode} from '../const';
+import {AppRoute} from '../const';
 import {redirectToRoute} from './action';
 import {AppDispatch} from '../types/state';
 import browserHistory from '../services/browser-history';
 import {TReview, TReviewContent, TReviews} from '../types/review';
+import {HttpCode} from '../services/api/http-code';
 
 export const fetchOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
   'offers/fetch',

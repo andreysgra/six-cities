@@ -2,7 +2,7 @@ import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import React, {Fragment, useEffect} from 'react';
 import NearPlacesList from '../../components/near-places-list/near-places-list';
-import {AuthorizationStatus, MapPlace, NEARBY_OFFERS_COUNT} from '../../const';
+import {MapPlace, NEARBY_OFFERS_COUNT} from '../../const';
 import {shuffleArray} from '../../utils/utils';
 import Map from '../../components/map/map';
 import OfferDescription from '../../components/offer-description/offer-description';
@@ -13,6 +13,7 @@ import {useParams} from 'react-router-dom';
 import {fetchComments, fetchNearbyOffers, fetchOffer, postComment} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
 import {TReviewContent} from '../../types/review';
+import {AuthorizationStatus} from '../../services/api/const';
 
 function OfferPage(): React.JSX.Element | null {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -23,17 +24,15 @@ function OfferPage(): React.JSX.Element | null {
 
   const dispatch = useAppDispatch();
 
-  const params = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
-    const {id} = params;
-
     if (id) {
       dispatch(fetchOffer(id));
       dispatch(fetchComments(id));
       dispatch(fetchNearbyOffers(id));
     }
-  }, [params, dispatch]);
+  }, [id, dispatch]);
 
   if (!offer) {
     return null;

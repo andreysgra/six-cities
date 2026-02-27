@@ -1,6 +1,6 @@
 import {TCityName} from '../types/city';
 import {TOfferDetailed, TOffers} from '../types/offer';
-import {AuthorizationStatus, Cities, SortingType} from '../const';
+import {Cities, SortingType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
 import {setCity, setSorting} from './action';
 import {TSortOption} from '../types/sorting';
@@ -17,7 +17,7 @@ import {
 } from './api-actions';
 import {TUser} from '../types/user';
 import {TReviews} from '../types/review';
-import {SubmitStatus} from '../services/api/const';
+import {AuthorizationStatus, SubmitStatus} from '../services/api/const';
 
 type State = {
   city: TCityName;

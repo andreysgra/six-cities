@@ -1,6 +1,6 @@
 import MainPage from '../../pages/main-page/main-page';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -13,6 +13,7 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {useEffect} from 'react';
 import {fetchFavoriteOffers} from '../../store/api-actions';
+import {AuthorizationStatus} from '../../services/api/const';
 
 function App() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
