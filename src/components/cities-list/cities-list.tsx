@@ -2,14 +2,18 @@ import {Cities} from '../../const';
 import CityItem from '../city-item/city-item';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {setCity} from '../../store/action';
 import {TCityName} from '../../types/city';
+import {getCity} from '../../store/site-process/selectors';
+import {setCity} from '../../store/site-process/slice';
+import {useCallback} from 'react';
 
 function CitiesList() {
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(getCity);
   const dispatch = useAppDispatch();
 
-  const handleItemClick = (name: TCityName) => dispatch(setCity(name));
+  const handleItemClick = useCallback((name: TCityName) => {
+    dispatch(setCity(name));
+  }, [dispatch]);
 
   return (
     <ul className="locations__list tabs__list">

@@ -1,7 +1,7 @@
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {FormEvent, useRef} from 'react';
-import {loginUser} from '../../store/api-actions';
 import {VALID_PASSWORD_REGEXP} from '../../const';
+import {loginUser} from '../../store/user/api-actions';
 
 function LoginForm() {
   const dispatch = useAppDispatch();

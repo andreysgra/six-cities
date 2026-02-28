@@ -6,21 +6,19 @@ import NoOffers from '../no-offers/no-offers';
 import classNames from 'classnames';
 import Sorting from '../sorting/sorting';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {setSorting} from '../../store/action';
 import {TSortOption} from '../../types/sorting';
-import {SorterOffers} from '../../utils/utils';
 import Spinner from '../spinner/spinner';
+import {getCity, getFilteredOffers, getSorting} from '../../store/site-process/selectors';
+import {getIsOffersLoading} from '../../store/offers/selectors';
+import {setSorting} from '../../store/site-process/slice';
 
 function Cities() {
-  const activeCity = useAppSelector((state) => state.city);
-  const activeSorting = useAppSelector((state) => state.sorting);
+  const activeCity = useAppSelector(getCity);
+  const activeSorting = useAppSelector(getSorting);
+  const offers = useAppSelector(getFilteredOffers);
+  const isOffersLoading = useAppSelector(getIsOffersLoading);
+
   const dispatch = useAppDispatch();
-
-  const offers = useAppSelector((state) => state.offers)
-    .filter((offer) => offer.city.name === activeCity)
-    .sort(SorterOffers[activeSorting]);
-
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
   const [offerCurrentId, setOfferCurrentId] = useState<string | null>(null);
 

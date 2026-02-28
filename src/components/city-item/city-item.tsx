@@ -1,5 +1,5 @@
 import {TCityName} from '../../types/city';
-import {MouseEvent} from 'react';
+import {memo, MouseEvent} from 'react';
 import classNames from 'classnames';
 
 type CityItemProps = {
@@ -8,7 +8,7 @@ type CityItemProps = {
   onClick: (name: TCityName) => void;
 }
 
-function CityItem({name, isActive, onClick}: CityItemProps) {
+function CityItemElement({name, isActive, onClick}: CityItemProps) {
   const handleCityItemClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
     onClick(name);
@@ -26,5 +26,7 @@ function CityItem({name, isActive, onClick}: CityItemProps) {
     </li>
   );
 }
+
+const CityItem = memo(CityItemElement);
 
 export default CityItem;
