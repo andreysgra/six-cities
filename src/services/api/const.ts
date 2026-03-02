@@ -14,3 +14,8 @@ export enum SubmitStatus {
   Fulfilled = 'FULFILLED',
   Rejected = 'REJECTED'
 }
+
+export enum FavoriteStatus {
+  On = 1,
+  Off = 0
+}

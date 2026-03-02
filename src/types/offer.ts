@@ -1,6 +1,7 @@
 import {TCity} from './city';
 import {TLocation} from './location';
 import {TUser} from './user';
+import {FavoriteStatus} from '../services/api/const';
 
 export type TOffer = {
   id: string;
@@ -25,3 +26,5 @@ export type TOfferDetailed = Omit<TOffer, 'previewImage'> & {
   images: string[];
   maxAdults: number;
 }
+
+export type TFavoriteStatus = Pick<TOffer, 'id'> & {status: FavoriteStatus};
