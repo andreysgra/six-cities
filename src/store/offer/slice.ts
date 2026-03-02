@@ -2,7 +2,8 @@ import {TOfferState} from './type';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../const';
 import {fetchOffer} from './api-actions';
-import {TOfferDetailed} from '../../types/offer';
+import {TOffer, TOfferDetailed} from '../../types/offer';
+import {setFavorite} from '../favorites/api-actions';
 
 const initialState: TOfferState = {
   offer: null,
@@ -24,6 +25,11 @@ const offerSlice = createSlice({
       })
       .addCase(fetchOffer.rejected, (state) => {
         state.isOfferLoading = false;
+      })
+      .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
+        if (state.offer && state.offer.id === action.payload.id) {
+          state.offer.isFavorite = action.payload.isFavorite;
+        }
       });
   }
 });

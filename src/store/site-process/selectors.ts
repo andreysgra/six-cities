@@ -1,7 +1,8 @@
 import {State} from '../../types/state';
 import {StoreSlice} from '../const';
 import {createSelector} from '@reduxjs/toolkit';
-import {getFavoriteOffers, getOffers} from '../offers/selectors';
+import {getFavoriteOffers} from '../favorites/selectors';
+import {getOffers} from '../offers/selectors';
 import {groupBy, SorterOffers} from '../../utils/utils';
 
 export const getCity = (state: State) => state[StoreSlice.SiteProcess].city;

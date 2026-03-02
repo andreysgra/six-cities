@@ -7,7 +7,7 @@ import browserHistory from '../../services/browser-history';
 import {StoreSlice} from '../const';
 
 export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosInstance}>(
-  `${StoreSlice.User}user/fetch`,
+  `${StoreSlice.User}/fetch`,
   async (_, {extra: api}) => {
     const {data} = await api.get<TUser>(ApiRoute.Login);
 

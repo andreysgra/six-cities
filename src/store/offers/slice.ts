@@ -1,15 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../const';
 import {TOffersState} from './type';
-import {fetchFavoriteOffers, fetchNearbyOffers, fetchOffers} from './api-actions';
-import {TOffers} from '../../types/offer';
+import {fetchNearbyOffers, fetchOffers} from './api-actions';
+import {TOffer, TOffers} from '../../types/offer';
+import {setFavorite} from '../favorites/api-actions';
 
 const initialState: TOffersState = {
   offers: [],
   nearByOffers: [],
-  favoriteOffers: [],
-  isOffersLoading: false,
-  isFavoriteOffersLoading: false
+  isOffersLoading: false
 };
 
 const offersSlice = createSlice({
@@ -31,15 +30,14 @@ const offersSlice = createSlice({
       .addCase(fetchNearbyOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
         state.nearByOffers = action.payload;
       })
-      .addCase(fetchFavoriteOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
-        state.favoriteOffers = action.payload;
-        state.isFavoriteOffersLoading = false;
-      })
-      .addCase(fetchFavoriteOffers.pending, (state) => {
-        state.isFavoriteOffersLoading = true;
-      })
-      .addCase(fetchFavoriteOffers.rejected, (state) => {
-        state.isFavoriteOffersLoading = false;
+      .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
+        const updatedOffer = action.payload;
+
+        state.offers = state.offers
+          .map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
+
+        state.nearByOffers = state.nearByOffers
+          .map((nearByOffer) => nearByOffer.id === updatedOffer.id ? updatedOffer : nearByOffer);
       });
   }
 });
