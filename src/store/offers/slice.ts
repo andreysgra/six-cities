@@ -31,13 +31,11 @@ const offersSlice = createSlice({
         state.nearByOffers = action.payload;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
-        const updatedOffer = action.payload;
-
         state.offers = state.offers
-          .map((offer) => offer.id === updatedOffer.id ? updatedOffer : offer);
+          .map((offer) => offer.id === action.payload.id ? action.payload : offer);
 
         state.nearByOffers = state.nearByOffers
-          .map((nearByOffer) => nearByOffer.id === updatedOffer.id ? updatedOffer : nearByOffer);
+          .map((nearByOffer) => nearByOffer.id === action.payload.id ? action.payload : nearByOffer);
       });
   }
 });

@@ -5,3 +5,6 @@ export const getFavoriteOffers = (state: State) => state[StoreSlice.Favorites].f
 
 export const getIsFavoriteOffersLoading =
   (state: State) => state[StoreSlice.Favorites].isFavoriteOffersLoading;
+
+export const getIsStatusPending =
+  (state: State) => state[StoreSlice.Favorites].isStatusPending;

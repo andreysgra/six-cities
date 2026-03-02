@@ -7,7 +7,8 @@ import {setFavorite} from './api-actions';
 
 const initialState: TFavoriteOffersState = {
   favoriteOffers: [],
-  isFavoriteOffersLoading: false
+  isFavoriteOffersLoading: false,
+  isStatusPending: false
 };
 
 const favoriteOffersSlice = createSlice({
@@ -27,14 +28,20 @@ const favoriteOffersSlice = createSlice({
         state.isFavoriteOffersLoading = false;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
-        const updatedOffer = action.payload;
-
-        if (updatedOffer.isFavorite) {
-          state.favoriteOffers = state.favoriteOffers.concat(updatedOffer);
+        if (action.payload.isFavorite) {
+          state.favoriteOffers.push(action.payload);
         } else {
           state.favoriteOffers = state.favoriteOffers.filter((favoriteOffer) =>
-            favoriteOffer.id !== updatedOffer.id);
+            favoriteOffer.id !== action.payload.id);
         }
+
+        state.isStatusPending = false;
+      })
+      .addCase(setFavorite.pending, (state) => {
+        state.isStatusPending = true;
+      })
+      .addCase(setFavorite.rejected, (state) => {
+        state.isStatusPending = false;
       });
   }
 });

@@ -6,6 +6,7 @@ import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import {setFavorite} from '../../store/favorites/api-actions';
 import {FavoriteStatus} from '../../services/api/const';
 import classNames from 'classnames';
+import {getIsStatusPending} from '../../store/favorites/selectors';
 
 type BookmarkButtonProps = {
   id: TOffer['id'];
@@ -15,6 +16,7 @@ type BookmarkButtonProps = {
 
 function BookmarkButton({id, isFavorite, place = BookmarkPlace.PlaceCard}: BookmarkButtonProps) {
   const isAuthorized = useAppSelector(getIsAuthorized);
+  const isStatusPending = useAppSelector(getIsStatusPending);
 
   const dispatch = useAppDispatch();
 
@@ -29,7 +31,7 @@ function BookmarkButton({id, isFavorite, place = BookmarkPlace.PlaceCard}: Bookm
     `${place}__bookmark-button button`, {[`${place}__bookmark-button--active`]: isFavorite && isAuthorized});
 
   return (
-    <button className={bookmarkClassName} type="button" onClick={handleButtonClick}>
+    <button className={bookmarkClassName} type="button" onClick={handleButtonClick} disabled={isStatusPending}>
       <svg
         className={`${place}__bookmark-icon`}
         width={place === BookmarkPlace.PlaceCard ? 18 : 31}
