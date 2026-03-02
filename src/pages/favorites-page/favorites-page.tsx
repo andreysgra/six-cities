@@ -5,7 +5,7 @@ import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import classNames from 'classnames';
 import Spinner from '../../components/spinner/spinner';
-import {getFavoriteOffers, getIsFavoriteOffersLoading} from '../../store/offers/selectors';
+import {getFavoriteOffers, getIsFavoriteOffersLoading} from '../../store/favorites/selectors';
 
 function FavoritesPage() {
   const favoriteOffers = useAppSelector(getFavoriteOffers);
