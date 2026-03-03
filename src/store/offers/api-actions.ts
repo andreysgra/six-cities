@@ -21,12 +21,3 @@ export const fetchNearbyOffers = createAsyncThunk<TOffers, TOffer['id'], {extra:
     return data;
   }
 );
-
-export const fetchFavoriteOffers = createAsyncThunk<TOffers, undefined, {extra: AxiosInstance}>(
-  `${StoreSlice.Offers}/fetch-favorite`,
-  async (_, {extra: api}) => {
-    const {data} = await api.get<TOffers>(ApiRoute.Favorite);
-
-    return data;
-  }
-);

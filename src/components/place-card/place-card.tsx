@@ -3,6 +3,7 @@ import {capitalizeFirstLetter, getRatingStyle} from '../../utils/utils';
 import {Link} from 'react-router-dom';
 import {AppRoute, OfferPlace} from '../../const';
 import BookmarkButton from '../bookmark-button/bookmark-button';
+import {memo} from 'react';
 
 type PlaceCardProps = {
   offer: TOffer;
@@ -11,7 +12,7 @@ type PlaceCardProps = {
   onMouseLeave?: () => void;
 }
 
-function PlaceCard({
+function PlaceCardElement({
   offer,
   place = OfferPlace.City,
   onMouseEnter = () => undefined,
@@ -59,7 +60,7 @@ function PlaceCard({
             <b className="place-card__price-value">€{price} </b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <BookmarkButton isFavorite={isFavorite} />
+          <BookmarkButton id={id} isFavorite={isFavorite} />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -75,5 +76,10 @@ function PlaceCard({
     </article>
   );
 }
+
+const PlaceCard = memo(PlaceCardElement,
+  (prevProps, nextProps) =>
+    prevProps.offer.isFavorite === nextProps.offer.isFavorite
+);
 
 export default PlaceCard;

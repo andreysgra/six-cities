@@ -6,8 +6,8 @@ import {useAppSelector} from '../../hooks/use-app-selector';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
 import classNames from 'classnames';
 import {getIsAuthorized, getUser} from '../../store/user/selectors';
-import {getFavoriteOffers} from '../../store/offers/selectors';
 import {logoutUser} from '../../store/user/api-actions';
+import {getFavoriteOffers} from '../../store/favorites/selectors';
 
 function Layout() {
   const user = useAppSelector(getUser);

@@ -37,7 +37,7 @@ function OfferDescription({offer}: OfferDescription) {
         <h1 className="offer__name">
           {title}
         </h1>
-        <BookmarkButton isFavorite={isFavorite} place={BookmarkPlace.Offer} />
+        <BookmarkButton id={id} isFavorite={isFavorite} place={BookmarkPlace.Offer} />
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">
