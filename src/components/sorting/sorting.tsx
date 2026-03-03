@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {memo, useState} from 'react';
 import {SortingType} from '../../const';
 import {TSortOption} from '../../types/sorting';
 import classNames from 'classnames';
@@ -8,7 +8,7 @@ type SortingProps = {
   onChange: (option: TSortOption) => void;
 }
 
-function Sorting({activeSorting, onChange}: SortingProps) {
+function SortingElement({activeSorting, onChange}: SortingProps) {
   const [isOpened, setIsOpened] = useState<boolean>(false);
 
   const handleToggleClick = () => setIsOpened(!isOpened);
@@ -44,5 +44,10 @@ function Sorting({activeSorting, onChange}: SortingProps) {
     </form>
   );
 }
+
+const Sorting = memo(SortingElement,
+  (prevProps, nextProps) =>
+    prevProps.activeSorting === nextProps.activeSorting
+);
 
 export default Sorting;
