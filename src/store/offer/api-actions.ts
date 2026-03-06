@@ -1,9 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {TOfferDetailed} from '../../types/offer';
-import {AxiosError, AxiosInstance} from 'axios';
+import {AxiosError, AxiosInstance, HttpStatusCode} from 'axios';
 import {AppDispatch} from '../../types/state';
 import {ApiRoute} from '../../services/api/api-route';
-import {HttpCode} from '../../services/api/http-code';
 import {redirectToRoute} from '../action';
 import {AppRoute} from '../../const';
 import {StoreSlice} from '../const';
@@ -21,7 +20,7 @@ export const fetchOffer = createAsyncThunk<TOfferDetailed, TOfferDetailed['id'],
     } catch (error) {
       const axiosError = error as AxiosError;
 
-      if (axiosError.response?.status === HttpCode.NotFound) {
+      if (axiosError.response?.status === HttpStatusCode.NotFound) {
         dispatch(redirectToRoute(AppRoute.NotFound));
       }
 
