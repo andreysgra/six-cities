@@ -1,6 +1,8 @@
-import axios, {AxiosInstance, InternalAxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosInstance, InternalAxiosRequestConfig} from 'axios';
 import {BASE_URL, REQUEST_TIMEOUT} from './const';
 import {getToken} from '../token';
+import {toast} from 'react-toastify';
+import {ResponseError} from './type';
 
 export const createApi = (): AxiosInstance => {
   const api = axios.create({
@@ -17,6 +19,15 @@ export const createApi = (): AxiosInstance => {
       }
 
       return config;
+    });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<ResponseError>) => {
+      toast.dismiss();
+      toast.warn(error.response ? error.response.data.message : error.message);
+
+      return Promise.reject(error);
     });
 
   return api;
