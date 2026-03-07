@@ -15,7 +15,7 @@ export const fetchUserStatus = createAsyncThunk<TUser, undefined, {extra: AxiosI
   }
 );
 
-export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, {extra: AxiosInstance}>(
+export const loginUser = createAsyncThunk<TUser, TUserAuth, {extra: AxiosInstance}>(
   `${StoreSlice.User}/login`,
   async ({email, password}, {extra: api}) => {
     const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
@@ -24,7 +24,7 @@ export const loginUser = createAsyncThunk<TUserAuth['email'], TUserAuth, {extra:
     saveToken(token);
     browserHistory.back();
 
-    return email;
+    return data;
   }
 );
 

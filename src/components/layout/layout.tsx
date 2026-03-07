@@ -62,7 +62,7 @@ function Layout() {
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {isAuthorized ?
                         <Fragment>
-                          <span className="header__user-name user__name">{user}</span>
+                          <span className="header__user-name user__name">{user?.email}</span>
                           <span className="header__favorite-count">{favoriteOffers.length}</span>
                         </Fragment>
                         :
