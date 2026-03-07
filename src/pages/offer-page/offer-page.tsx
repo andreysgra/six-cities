@@ -27,9 +27,11 @@ function OfferPage() {
   return (
     <main className="page__main page__main--offer">
       <Offer id={id} nearByOffers={randomNearByOffers} />
-      <div className="container">
-        <NearPlacesList nearByOffers={randomNearByOffers} />
-      </div>
+      {randomNearByOffers.length > 0 && (
+        <div className="container">
+          <NearPlacesList nearByOffers={randomNearByOffers}/>
+        </div>
+      )}
     </main>
   );
 }
