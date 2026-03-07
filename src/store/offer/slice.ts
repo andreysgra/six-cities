@@ -24,6 +24,7 @@ const offerSlice = createSlice({
         state.isOfferLoading = true;
       })
       .addCase(fetchOffer.rejected, (state) => {
+        state.offer = null;
         state.isOfferLoading = false;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
