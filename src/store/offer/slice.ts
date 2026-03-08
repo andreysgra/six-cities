@@ -28,7 +28,7 @@ const offerSlice = createSlice({
         state.isOfferLoading = false;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
-        if (state.offer && state.offer.id === action.payload.id) {
+        if (state.offer?.id === action.payload.id) {
           state.offer.isFavorite = action.payload.isFavorite;
         }
       });
