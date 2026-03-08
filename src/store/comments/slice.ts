@@ -19,6 +19,9 @@ const commentsSlice = createSlice({
       .addCase(fetchComments.fulfilled, (state, action: PayloadAction<TReviews>) => {
         state.comments = action.payload;
       })
+      .addCase(fetchComments.rejected, (state) => {
+        state.comments = [];
+      })
       .addCase(postComment.fulfilled, (state, action: PayloadAction<TReview>) => {
         state.comments.push(action.payload);
         state.commentStatus = SubmitStatus.Fulfilled;

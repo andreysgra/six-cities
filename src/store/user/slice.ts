@@ -7,7 +7,7 @@ import {TUser} from '../../types/user';
 
 const initialState: TUserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  user: ''
+  user: null
 };
 
 const userSlice = createSlice({
@@ -17,18 +17,18 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserStatus.fulfilled, (state, action: PayloadAction<TUser>) => {
-        state.user = action.payload.email;
+        state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(fetchUserStatus.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
-      .addCase(loginUser.fulfilled, (state, action: PayloadAction<TUser['email']>) => {
+      .addCase(loginUser.fulfilled, (state, action: PayloadAction<TUser>) => {
         state.user = action.payload;
         state.authorizationStatus = AuthorizationStatus.Auth;
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        state.user = '';
+        state.user = null;
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   }

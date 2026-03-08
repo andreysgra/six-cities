@@ -30,6 +30,9 @@ const offersSlice = createSlice({
       .addCase(fetchNearbyOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
         state.nearByOffers = action.payload;
       })
+      .addCase(fetchNearbyOffers.rejected, (state) => {
+        state.nearByOffers = [];
+      })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
         state.offers = state.offers
           .map((offer) => offer.id === action.payload.id ? action.payload : offer);

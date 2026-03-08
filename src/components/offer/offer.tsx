@@ -15,6 +15,7 @@ import Spinner from '../spinner/spinner';
 import {TReviewContent} from '../../types/review';
 import {getIsAuthorized} from '../../store/user/selectors';
 import {TOffers} from '../../types/offer';
+import OfferError from '../offer-error/offer-error';
 
 type OfferProps = {
   id: string;
@@ -35,7 +36,7 @@ function Offer({id, nearByOffers}: OfferProps) {
   }, [id, dispatch]);
 
   if (!offer) {
-    return null;
+    return <OfferError />;
   }
 
   if (isOfferLoading) {
