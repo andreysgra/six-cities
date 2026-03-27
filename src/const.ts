@@ -39,6 +39,14 @@ export enum ErrorMessage {
   ReviewSubmit = 'An error occurred, please try sending again'
 }
 
+export enum PageTitle {
+  Favorites = '6 cities: favorites',
+  LogIn = '6 cities: authorization',
+  Main = '6 cities',
+  NotFound = '6 cities: 404',
+  Offer = '6 cities: offer',
+}
+
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;
