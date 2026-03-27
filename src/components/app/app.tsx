@@ -15,6 +15,7 @@ import {useEffect} from 'react';
 import {AuthorizationStatus} from '../../services/api/const';
 import {getIsAuthorized} from '../../store/user/selectors';
 import {fetchFavoriteOffers} from '../../store/favorites/api-actions';
+import {HelmetProvider} from 'react-helmet-async';
 
 function App() {
   const isAuthorized = useAppSelector(getIsAuthorized);
@@ -28,49 +29,51 @@ function App() {
   }, [isAuthorized, dispatch]);
 
   return (
-    <HistoryRouter history={browserHistory}>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<Layout />}
-        >
+    <HelmetProvider>
+      <HistoryRouter history={browserHistory}>
+        <Routes>
           <Route
-            index
-            element={<MainPage />}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={
-              <PrivateRoute
-                restrictedFor={AuthorizationStatus.Auth}
-                redirectedTo={AppRoute.Root}
-              >
-                <LoginPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={`${AppRoute.Offer}/:id`}
-            element={<OfferPage />}
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={
-              <PrivateRoute
-                restrictedFor={AuthorizationStatus.NoAuth}
-                redirectedTo={AppRoute.Login}
-              >
-                <FavoritesPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Route>
-      </Routes>
-    </HistoryRouter>
+            path={AppRoute.Root}
+            element={<Layout/>}
+          >
+            <Route
+              index
+              element={<MainPage/>}
+            />
+            <Route
+              path={AppRoute.Login}
+              element={
+                <PrivateRoute
+                  restrictedFor={AuthorizationStatus.Auth}
+                  redirectedTo={AppRoute.Root}
+                >
+                  <LoginPage/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={`${AppRoute.Offer}/:id`}
+              element={<OfferPage/>}
+            />
+            <Route
+              path={AppRoute.Favorites}
+              element={
+                <PrivateRoute
+                  restrictedFor={AuthorizationStatus.NoAuth}
+                  redirectedTo={AppRoute.Login}
+                >
+                  <FavoritesPage/>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={<NotFoundPage/>}
+            />
+          </Route>
+        </Routes>
+      </HistoryRouter>
+    </HelmetProvider>
   );
 }
 

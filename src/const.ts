@@ -34,7 +34,17 @@ export enum SuccessMessage {
 }
 
 export enum ErrorMessage {
+  Email = 'Email in not valid',
+  Password = 'The password must contain at least one letter and one number',
   ReviewSubmit = 'An error occurred, please try sending again'
+}
+
+export enum PageTitle {
+  Favorites = '6 cities: favorites',
+  LogIn = '6 cities: authorization',
+  Main = '6 cities',
+  NotFound = '6 cities: 404',
+  Offer = '6 cities: offer',
 }
 
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
@@ -67,4 +77,6 @@ export const MapIcon = {
   Anchor: [13.5, 39] as [number, number]
 } as const;
 
-export const VALID_PASSWORD_REGEXP = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
+export const VALID_EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+export const VALID_PASSWORD_PATTERN = /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/;
