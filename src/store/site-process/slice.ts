@@ -1,5 +1,5 @@
 import {TSiteProcessState} from './type';
-import {Cities, SortingType} from '../../const';
+import {Cities} from '../../const';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../const';
 import {TCityName} from '../../types/city';
@@ -7,7 +7,7 @@ import {TSortOption} from '../../types/sorting';
 
 const initialState: TSiteProcessState = {
   city: Cities[0],
-  sorting: SortingType.Popular
+  sorting: 'Popular'
 };
 
 const siteProcessSlice = createSlice({

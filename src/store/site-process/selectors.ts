@@ -5,9 +5,11 @@ import {getFavoriteOffers} from '../favorites/selectors';
 import {getOffers} from '../offers/selectors';
 import {groupBy, SorterOffers} from '../../utils/utils';
 
-export const getCity = (state: State) => state[StoreSlice.SiteProcess].city;
+const storeSlice = StoreSlice.SiteProcess;
 
-export const getSorting = (state: State) => state[StoreSlice.SiteProcess].sorting;
+export const getCity = (state: State) => state[storeSlice].city;
+
+export const getSorting = (state: State) => state[storeSlice].sorting;
 
 export const getFilteredOffers = createSelector(
   [getOffers, getCity, getSorting],
