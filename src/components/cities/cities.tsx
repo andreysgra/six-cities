@@ -22,13 +22,15 @@ function Cities() {
 
   const [offerCurrentId, setOfferCurrentId] = useState<string | null>(null);
 
-  const locations = offers.map(({id, location}) => ({id, ...location}));
+  const locations = offers.map(({id, location}) =>
+    ({id, ...location}));
 
   const handlePlaceCardHover = (offerId: string | null) => {
     setOfferCurrentId(offerId);
   };
 
-  const handleSortingChange = (option: TSortOption) => dispatch(setSorting(option));
+  const handleSortingChange = (option: TSortOption) =>
+    dispatch(setSorting(option));
 
   const hasOffers = offers.length > 0;
 
@@ -38,17 +40,20 @@ function Cities() {
 
   return (
     <div className="cities">
-      <div className={classNames('cities__places-container container', {'cities__places-container--empty': !hasOffers})}>
+      <div className={classNames(
+        'cities__places-container container',
+        {'cities__places-container--empty': !hasOffers})}
+      >
         {hasOffers ? (
           <Fragment>
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offers.length} places to stay in {activeCity}</b>
               <Sorting activeSorting={activeSorting} onChange={handleSortingChange} />
-              <PlacesList offers={offers} onPlaceCardHover={handlePlaceCardHover}/>
+              <PlacesList offers={offers} onPlaceCardHover={handlePlaceCardHover} />
             </section>
             <div className="cities__right-section">
-              <Map city={offers[0].city} locations={locations} offerCurrentId={offerCurrentId}/>
+              <Map city={offers[0].city} locations={locations} offerCurrentId={offerCurrentId} />
             </div>
           </Fragment>
         ) : <NoOffers city={activeCity} />}
