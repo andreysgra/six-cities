@@ -6,7 +6,7 @@ import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
 import {MapPlace} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getIsOfferLoading, getOffer} from '../../store/offer/selectors';
+import {getIsOfferFailed, getIsOfferLoading, getOffer} from '../../store/offer/selectors';
 import {getComments} from '../../store/comments/selectors';
 import {fetchOffer} from '../../store/offer/api-actions';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
@@ -24,6 +24,7 @@ type OfferProps = {
 function Offer({id, nearByOffers}: OfferProps) {
   const offer = useAppSelector(getOffer);
   const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const isOfferFailed = useAppSelector(getIsOfferFailed);
   const comments = useAppSelector(getComments);
   const isAuthorized = useAppSelector(getIsAuthorized);
 
@@ -34,12 +35,12 @@ function Offer({id, nearByOffers}: OfferProps) {
     dispatch(fetchComments(id));
   }, [id, dispatch]);
 
-  if (!offer) {
-    return <OfferError />;
-  }
-
   if (isOfferLoading) {
     return <Spinner />;
+  }
+
+  if (isOfferFailed || !offer) {
+    return <OfferError />;
   }
 
   const locations = nearByOffers

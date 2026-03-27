@@ -4,10 +4,11 @@ import {StoreSlice} from '../const';
 import {fetchOffer} from './api-actions';
 import {TOffer, TOfferDetailed} from '../../types/offer';
 import {setFavorite} from '../favorites/api-actions';
+import {RequestStatus} from '../../services/api/const';
 
 const initialState: TOfferState = {
   offer: null,
-  isOfferLoading: false
+  loadingStatus: RequestStatus.Idle
 };
 
 const offerSlice = createSlice({
@@ -18,14 +19,14 @@ const offerSlice = createSlice({
     builder
       .addCase(fetchOffer.fulfilled, (state, action: PayloadAction<TOfferDetailed>) => {
         state.offer = action.payload;
-        state.isOfferLoading = false;
+        state.loadingStatus = RequestStatus.Success;
       })
       .addCase(fetchOffer.pending, (state) => {
-        state.isOfferLoading = true;
+        state.loadingStatus = RequestStatus.Pending;
       })
       .addCase(fetchOffer.rejected, (state) => {
         state.offer = null;
-        state.isOfferLoading = false;
+        state.loadingStatus = RequestStatus.Error;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
         if (state.offer?.id === action.payload.id) {
