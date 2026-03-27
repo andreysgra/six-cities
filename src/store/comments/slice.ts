@@ -1,5 +1,5 @@
 import {TCommentsState} from './type';
-import {SubmitStatus} from '../../services/api/const';
+import {RequestStatus} from '../../services/api/const';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {StoreSlice} from '../const';
 import {fetchComments, postComment} from './api-actions';
@@ -7,7 +7,7 @@ import {TReview, TReviews} from '../../types/review';
 
 const initialState: TCommentsState = {
   comments: [],
-  commentStatus: SubmitStatus.Still
+  submitStatus: RequestStatus.Idle
 };
 
 const commentsSlice = createSlice({
@@ -24,13 +24,13 @@ const commentsSlice = createSlice({
       })
       .addCase(postComment.fulfilled, (state, action: PayloadAction<TReview>) => {
         state.comments.push(action.payload);
-        state.commentStatus = SubmitStatus.Fulfilled;
+        state.submitStatus = RequestStatus.Success;
       })
       .addCase(postComment.pending, (state) => {
-        state.commentStatus = SubmitStatus.Pending;
+        state.submitStatus = RequestStatus.Pending;
       })
       .addCase(postComment.rejected, (state) => {
-        state.commentStatus = SubmitStatus.Rejected;
+        state.submitStatus = RequestStatus.Error;
       });
   }
 });

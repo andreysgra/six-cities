@@ -1,4 +1,4 @@
-import axios, {AxiosError, AxiosInstance, InternalAxiosRequestConfig} from 'axios';
+import axios, {AxiosError, AxiosInstance, HttpStatusCode, InternalAxiosRequestConfig} from 'axios';
 import {BASE_URL, REQUEST_TIMEOUT} from './const';
 import {getToken} from '../token';
 import {toast} from 'react-toastify';
@@ -25,7 +25,10 @@ export const createApi = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<ResponseError>) => {
       toast.dismiss();
-      toast.warn(error.response ? error.response.data.message : error.message);
+
+      if (error.response?.status !== HttpStatusCode.Unauthorized) {
+        toast.error(error.response ? error.response.data.message : error.message);
+      }
 
       return Promise.reject(error);
     });

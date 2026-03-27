@@ -1,7 +1,8 @@
 import {TOffers} from '../../types/offer';
+import {RequestStatus} from '../../services/api/const';
 
 export type TFavoriteOffersState = {
   favoriteOffers: TOffers;
-  isFavoriteOffersLoading: boolean;
-  isStatusPending: boolean;
+  addingStatus: RequestStatus;
+  loadingStatus: RequestStatus;
 }

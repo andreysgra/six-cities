@@ -4,11 +4,12 @@ import {TOffersState} from './type';
 import {fetchNearbyOffers, fetchOffers} from './api-actions';
 import {TOffer, TOffers} from '../../types/offer';
 import {setFavorite} from '../favorites/api-actions';
+import {RequestStatus} from '../../services/api/const';
 
 const initialState: TOffersState = {
   offers: [],
   nearByOffers: [],
-  isOffersLoading: false
+  loadingStatus: RequestStatus.Idle
 };
 
 const offersSlice = createSlice({
@@ -19,13 +20,13 @@ const offersSlice = createSlice({
     builder
       .addCase(fetchOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
         state.offers = action.payload;
-        state.isOffersLoading = false;
+        state.loadingStatus = RequestStatus.Success;
       })
       .addCase(fetchOffers.pending, (state) => {
-        state.isOffersLoading = true;
+        state.loadingStatus = RequestStatus.Pending;
       })
       .addCase(fetchOffers.rejected, (state) => {
-        state.isOffersLoading = false;
+        state.loadingStatus = RequestStatus.Error;
       })
       .addCase(fetchNearbyOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
         state.nearByOffers = action.payload;
@@ -38,7 +39,8 @@ const offersSlice = createSlice({
           .map((offer) => offer.id === action.payload.id ? action.payload : offer);
 
         state.nearByOffers = state.nearByOffers
-          .map((nearByOffer) => nearByOffer.id === action.payload.id ? action.payload : nearByOffer);
+          .map((nearByOffer) =>
+            nearByOffer.id === action.payload.id ? action.payload : nearByOffer);
       });
   }
 });

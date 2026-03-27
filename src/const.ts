@@ -29,6 +29,14 @@ export enum SortingType {
   TopRated = 'Top rated first'
 }
 
+export enum SuccessMessage {
+  ReviewSubmit = 'Thank you for your review'
+}
+
+export enum ErrorMessage {
+  ReviewSubmit = 'An error occurred, please try sending again'
+}
+
 export const Cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export const STARS_COUNT = 5;

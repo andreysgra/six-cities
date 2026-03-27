@@ -6,13 +6,12 @@ import ReviewForm from '../review-form/review-form';
 import Map from '../map/map';
 import {MapPlace} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
-import {getIsOfferLoading, getOffer} from '../../store/offer/selectors';
+import {getIsOfferFailed, getIsOfferLoading, getOffer} from '../../store/offer/selectors';
 import {getComments} from '../../store/comments/selectors';
 import {fetchOffer} from '../../store/offer/api-actions';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {fetchComments, postComment} from '../../store/comments/api-actions';
+import {fetchComments} from '../../store/comments/api-actions';
 import Spinner from '../spinner/spinner';
-import {TReviewContent} from '../../types/review';
 import {getIsAuthorized} from '../../store/user/selectors';
 import {TOffers} from '../../types/offer';
 import OfferError from '../offer-error/offer-error';
@@ -25,6 +24,7 @@ type OfferProps = {
 function Offer({id, nearByOffers}: OfferProps) {
   const offer = useAppSelector(getOffer);
   const isOfferLoading = useAppSelector(getIsOfferLoading);
+  const isOfferFailed = useAppSelector(getIsOfferFailed);
   const comments = useAppSelector(getComments);
   const isAuthorized = useAppSelector(getIsAuthorized);
 
@@ -35,12 +35,12 @@ function Offer({id, nearByOffers}: OfferProps) {
     dispatch(fetchComments(id));
   }, [id, dispatch]);
 
-  if (!offer) {
-    return <OfferError />;
-  }
-
   if (isOfferLoading) {
     return <Spinner />;
+  }
+
+  if (isOfferFailed || !offer) {
+    return <OfferError />;
   }
 
   const locations = nearByOffers
@@ -49,10 +49,6 @@ function Offer({id, nearByOffers}: OfferProps) {
     ));
 
   locations.push({id: offer.id, ...offer.location});
-
-  const handleFormSubmit = (formData: Omit<TReviewContent, 'id'>) => {
-    dispatch(postComment({id: offer.id, ...formData}));
-  };
 
   return (
     <section className="offer">
@@ -71,7 +67,7 @@ function Offer({id, nearByOffers}: OfferProps) {
                 <ReviewsList reviews={comments} />
               </Fragment>
             )}
-            {isAuthorized && <ReviewForm onSubmit={handleFormSubmit} />}
+            {isAuthorized && <ReviewForm id={id} />}
           </section>
         </div>
       </div>
