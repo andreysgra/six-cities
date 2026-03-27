@@ -4,11 +4,12 @@ import {StoreSlice} from '../const';
 import {fetchFavoriteOffers} from './api-actions';
 import {TOffer, TOffers} from '../../types/offer';
 import {setFavorite} from './api-actions';
+import {RequestStatus} from '../../services/api/const';
 
 const initialState: TFavoriteOffersState = {
   favoriteOffers: [],
-  isFavoriteOffersLoading: false,
-  isStatusPending: false
+  addingStatus: RequestStatus.Idle,
+  loadingStatus: RequestStatus.Idle
 };
 
 const favoriteOffersSlice = createSlice({
@@ -19,13 +20,13 @@ const favoriteOffersSlice = createSlice({
     builder
       .addCase(fetchFavoriteOffers.fulfilled, (state, action: PayloadAction<TOffers>) => {
         state.favoriteOffers = action.payload;
-        state.isFavoriteOffersLoading = false;
+        state.loadingStatus = RequestStatus.Success;
       })
       .addCase(fetchFavoriteOffers.pending, (state) => {
-        state.isFavoriteOffersLoading = true;
+        state.loadingStatus = RequestStatus.Pending;
       })
       .addCase(fetchFavoriteOffers.rejected, (state) => {
-        state.isFavoriteOffersLoading = false;
+        state.loadingStatus = RequestStatus.Error;
       })
       .addCase(setFavorite.fulfilled, (state, action: PayloadAction<TOffer>) => {
         if (action.payload.isFavorite) {
@@ -35,13 +36,13 @@ const favoriteOffersSlice = createSlice({
             favoriteOffer.id !== action.payload.id);
         }
 
-        state.isStatusPending = false;
+        state.addingStatus = RequestStatus.Success;
       })
       .addCase(setFavorite.pending, (state) => {
-        state.isStatusPending = true;
+        state.addingStatus = RequestStatus.Pending;
       })
       .addCase(setFavorite.rejected, (state) => {
-        state.isStatusPending = false;
+        state.addingStatus = RequestStatus.Error;
       });
   }
 });

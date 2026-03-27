@@ -5,18 +5,18 @@ import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks/use-app-selector';
 import classNames from 'classnames';
 import Spinner from '../../components/spinner/spinner';
-import {getFavoriteOffers, getIsFavoriteOffersLoading} from '../../store/favorites/selectors';
+import {getFavoriteOffers, getIsFavoritesLoading} from '../../store/favorites/selectors';
 
 function FavoritesPage() {
-  const favoriteOffers = useAppSelector(getFavoriteOffers);
-  const isFavoriteOffersLoading = useAppSelector(getIsFavoriteOffersLoading);
+  const offers = useAppSelector(getFavoriteOffers);
+  const isFavoritesLoading = useAppSelector(getIsFavoritesLoading);
 
-  if (isFavoriteOffersLoading) {
+  if (isFavoritesLoading) {
     return <Spinner />;
   }
 
   const favoriteClassName =
-    classNames('page__main page__main--favorites', {'page__main--favorites-empty': favoriteOffers.length === 0});
+    classNames('page__main page__main--favorites', {'page__main--favorites-empty': offers.length === 0});
 
   return (
     <Fragment>
@@ -28,7 +28,7 @@ function FavoritesPage() {
 
       <footer className="footer container">
         <Link className="footer__logo-link" to={AppRoute.Root}>
-          <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width={64} height={33}/>
+          <img className="footer__logo" src="/img/logo.svg" alt="6 cities logo" width={64} height={33}/>
         </Link>
       </footer>
     </Fragment>
