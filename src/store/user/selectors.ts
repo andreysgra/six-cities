@@ -2,9 +2,12 @@ import {State} from '../../types/state';
 import {StoreSlice} from '../const';
 import {AuthorizationStatus} from '../../services/api/const';
 
-export const getAuthorizationStatus = (state: State) => state[StoreSlice.User].authorizationStatus;
+const storeSlice = StoreSlice.User;
+
+export const getAuthorizationStatus = (state: State) =>
+  state[storeSlice].authorizationStatus;
 
 export const getIsAuthorized = (state: State): boolean =>
-  state[StoreSlice.User].authorizationStatus === AuthorizationStatus.Auth;
+  state[storeSlice].authorizationStatus === AuthorizationStatus.Auth;
 
-export const getUser = (state: State) => state[StoreSlice.User].user;
+export const getUser = (state: State) => state[storeSlice].user;
