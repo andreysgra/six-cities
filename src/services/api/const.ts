@@ -8,11 +8,11 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN'
 }
 
-export enum SubmitStatus {
-  Still = 'STILL',
-  Pending = 'PENDING',
-  Fulfilled = 'FULFILLED',
-  Rejected = 'REJECTED'
+export enum RequestStatus {
+  Error = 'Error',
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Success = 'Success'
 }
 
 export enum FavoriteStatus {

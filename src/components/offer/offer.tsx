@@ -10,9 +10,8 @@ import {getIsOfferLoading, getOffer} from '../../store/offer/selectors';
 import {getComments} from '../../store/comments/selectors';
 import {fetchOffer} from '../../store/offer/api-actions';
 import {useAppDispatch} from '../../hooks/use-app-dispatch';
-import {fetchComments, postComment} from '../../store/comments/api-actions';
+import {fetchComments} from '../../store/comments/api-actions';
 import Spinner from '../spinner/spinner';
-import {TReviewContent} from '../../types/review';
 import {getIsAuthorized} from '../../store/user/selectors';
 import {TOffers} from '../../types/offer';
 import OfferError from '../offer-error/offer-error';
@@ -50,10 +49,6 @@ function Offer({id, nearByOffers}: OfferProps) {
 
   locations.push({id: offer.id, ...offer.location});
 
-  const handleFormSubmit = (formData: Omit<TReviewContent, 'id'>) => {
-    dispatch(postComment({id: offer.id, ...formData}));
-  };
-
   return (
     <section className="offer">
       <div className="offer__gallery-container container">
@@ -71,7 +66,7 @@ function Offer({id, nearByOffers}: OfferProps) {
                 <ReviewsList reviews={comments} />
               </Fragment>
             )}
-            {isAuthorized && <ReviewForm onSubmit={handleFormSubmit} />}
+            {isAuthorized && <ReviewForm id={id} />}
           </section>
         </div>
       </div>
